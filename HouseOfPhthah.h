@@ -4,12 +4,17 @@
 #include <Ogre.h>
 #include "ExampleFrameListener.h"
 #include "SkyDome.h"
+#include "Terrain.h"
 
-class CHouseOfPhthah
+class CHouseOfPhthah : public Ogre::Singleton< CHouseOfPhthah >
 {
 public :
 	CHouseOfPhthah();
 	~CHouseOfPhthah();
+
+	static CHouseOfPhthah& getSingleton(void);
+    static CHouseOfPhthah* getSingletonPtr(void);
+
 	
 	void Start();
 	void Run();
@@ -38,6 +43,7 @@ private:
 
 private:
 	CSkyDome	mSkyDome;
+	CTerrain	mTerrain;
 };
 
 #endif //_HouseOfPhthah_

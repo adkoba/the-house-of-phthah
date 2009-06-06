@@ -235,6 +235,14 @@
 					/>
 				</FileConfiguration>
 			</File>
+			<File
+				RelativePath=".\SkyDome.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Terrain.cpp"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="Header Files"
@@ -247,6 +255,14 @@
 			</File>
 			<File
 				RelativePath=".\HouseOfPhthah.h"
+				>
+			</File>
+			<File
+				RelativePath=".\SkyDome.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Terrain.h"
 				>
 			</File>
 		</Filter>
