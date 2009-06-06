@@ -1,7 +1,16 @@
 #include "HouseOfPhthah.h"
 
-#include <OIS\OIS.h>
-#include "OgreConfigFile.h"
+// Init Singleton:
+template<> CHouseOfPhthah* Ogre::Singleton<CHouseOfPhthah>::ms_Singleton = 0;
+CHouseOfPhthah* CHouseOfPhthah::getSingletonPtr(void)
+{
+    return ms_Singleton;
+}
+CHouseOfPhthah& CHouseOfPhthah::getSingleton(void)
+{  
+    assert( ms_Singleton );  return ( *ms_Singleton );  
+}
+
 
 
 CHouseOfPhthah::CHouseOfPhthah() :
@@ -85,7 +94,8 @@ void CHouseOfPhthah::configure()
 void CHouseOfPhthah::chooseSceneManager()
 {
 	// Create the SceneManager, in this case a generic one
-	mSceneMgr = mRoot->createSceneManager(Ogre::ST_GENERIC, "ExampleSMInstance");
+	//mSceneMgr = mRoot->createSceneManager(Ogre::ST_GENERIC, "House Of Phthah");
+	mSceneMgr = mRoot->createSceneManager("TerrainSceneManager");
 }
 void CHouseOfPhthah::createCamera()
 {
@@ -93,7 +103,7 @@ void CHouseOfPhthah::createCamera()
 	mCamera = mSceneMgr->createCamera("PlayerCam");
 
 	// Position it at 500 in Z direction
-	mCamera->setPosition(Ogre::Vector3(0,0,500));
+	mCamera->setPosition(Ogre::Vector3(128,25,128));
 	// Look back along -Z
 	mCamera->lookAt(Ogre::Vector3(0,0,-300));
 	mCamera->setNearClipDistance(5);
@@ -106,44 +116,45 @@ void CHouseOfPhthah::createFrameListener()
 	mRoot->addFrameListener(mFrameListener);
 }
 
+// Init Rendering stuff
 void CHouseOfPhthah::createScene()
 {
-    // Set ambient light
-    mSceneMgr->setAmbientLight(ColourValue(0.5, 0.5, 0.5));
+		// Set ambient light
+        mSceneMgr->setAmbientLight(ColourValue(0.5, 0.5, 0.5));
 
-    // Create a skydome
-	mSkyDome.setPath("Examples/CloudySky");
-	mSkyDome.push(mSceneMgr);
+        // Create a light
+        Light* light = mSceneMgr->createLight("MainLight");
+        light->setPosition(20,80,50);
 
-    // Create a light
-    Light* l = mSceneMgr->createLight("MainLight");
-    // Accept default settings: point light, white diffuse, just set position
-    // NB I could attach the light to a SceneNode if I wanted it to move automatically with
-    //  other objects, but I don't
-    l->setPosition(20,80,50);
+		// Fog
+		/*ColourValue fadeColour(0.93, 0.86, 0.76);
+        mSceneMgr->setFog( FOG_LINEAR, fadeColour, .001, 500, 1000);
+        mWindow->getViewport(0)->setBackgroundColour(fadeColour);*/
+		
+		// Create a skydome
+		mSkyDome.setPath("Examples/CloudySky");
+		mSkyDome.push(mSceneMgr);
+		
+		// Load terrain:
+		std::string terrain_cfg("terrain.cfg");
+        mTerrain.Init( terrain_cfg );
 
-    Entity *ent;
+		//mRaySceneQuery = mSceneMgr->createRayQuery(
+          //  Ray(mCamera->getPosition(), Vector3::NEGATIVE_UNIT_Y));
+		
 
-    //// Define a floor plane mesh
-    //Plane p;
-    //p.normal = Vector3::UNIT_Y;
-    //p.d = 200;
-    //MeshManager::getSingleton().createPlane("FloorPlane",
-    //    ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME, 
-    //    p,2000,2000,1,1,true,1,5,5,Vector3::UNIT_Z);
+		// Set a nice viewpoint
+        mCamera->setPosition(707,2500,528);
+        mCamera->setOrientation(Quaternion(-0.3486, 0.0122, 0.9365, 0.0329));
 
-    //// Create an entity (the floor)
-    //ent = mSceneMgr->createEntity("floor", "FloorPlane");
-    //ent->setMaterialName("Examples/RustySteel");
-
-    //mSceneMgr->getRootSceneNode()->attachObject(ent);
-
-    ent = mSceneMgr->createEntity("head", "ogrehead.mesh");
-    // Attach to child of root node, better for culling (otherwise bounds are the combination of the 2)
-    mSceneMgr->getRootSceneNode()->createChildSceneNode()->attachObject(ent);
+		
+		Entity *ent;
+		ent = mSceneMgr->createEntity("head", "ogrehead.mesh");
+		// Attach to child of root node, better for culling (otherwise bounds are the combination of the 2)
+		mSceneMgr->getRootSceneNode()->createChildSceneNode()->attachObject(ent);
 }
 
-void CHouseOfPhthah::destroyScene(){}    // Optional to override this
+void CHouseOfPhthah::destroyScene(){}
 
 void CHouseOfPhthah::createViewports()
 {
@@ -193,7 +204,7 @@ void CHouseOfPhthah::setupResources()
 //// Optional override method where you can create resource listeners (e.g. for loading screens)
 void CHouseOfPhthah::createResourceListener(void)
 {
-
+	
 }
 
 /// Optional override method where you can perform resource group loading
