@@ -108,7 +108,39 @@ void CHouseOfPhthah::createFrameListener()
 
 void CHouseOfPhthah::createScene()
 {
+    // Set ambient light
+    mSceneMgr->setAmbientLight(ColourValue(0.5, 0.5, 0.5));
 
+    // Create a skydome
+	mSkyDome.setPath("Examples/CloudySky");
+	mSkyDome.push(mSceneMgr);
+
+    // Create a light
+    Light* l = mSceneMgr->createLight("MainLight");
+    // Accept default settings: point light, white diffuse, just set position
+    // NB I could attach the light to a SceneNode if I wanted it to move automatically with
+    //  other objects, but I don't
+    l->setPosition(20,80,50);
+
+    Entity *ent;
+
+    //// Define a floor plane mesh
+    //Plane p;
+    //p.normal = Vector3::UNIT_Y;
+    //p.d = 200;
+    //MeshManager::getSingleton().createPlane("FloorPlane",
+    //    ResourceGroupManager::DEFAULT_RESOURCE_GROUP_NAME, 
+    //    p,2000,2000,1,1,true,1,5,5,Vector3::UNIT_Z);
+
+    //// Create an entity (the floor)
+    //ent = mSceneMgr->createEntity("floor", "FloorPlane");
+    //ent->setMaterialName("Examples/RustySteel");
+
+    //mSceneMgr->getRootSceneNode()->attachObject(ent);
+
+    ent = mSceneMgr->createEntity("head", "ogrehead.mesh");
+    // Attach to child of root node, better for culling (otherwise bounds are the combination of the 2)
+    mSceneMgr->getRootSceneNode()->createChildSceneNode()->attachObject(ent);
 }
 
 void CHouseOfPhthah::destroyScene(){}    // Optional to override this
