@@ -3,6 +3,7 @@
 
 #include <Ogre.h>
 #include "ExampleFrameListener.h"
+#include "SkyDome.h"
 
 class CHouseOfPhthah
 {
@@ -34,6 +35,9 @@ private:
 	void		loadResources();
 	void		createResourceListener();
 	void		createFrameListener();
+
+private:
+	CSkyDome	mSkyDome;
 };
 
 #endif //_HouseOfPhthah_
