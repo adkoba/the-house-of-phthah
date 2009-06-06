@@ -15,13 +15,13 @@ public :
 	void Exit();
 	
 public :
-	Ogre::Root*				m_Root;
-	Ogre::SceneManager*		m_SceneMgr;
-	Ogre::Viewport*			m_Viewport;
-	Ogre::Camera*			m_Camera;
-    Ogre::RenderWindow*		m_Window;
-	Ogre::String			m_ResourcePath;
-	ExampleFrameListener*	m_FrameListener;
+	Ogre::Root*				mRoot;
+	Ogre::SceneManager*		mSceneMgr;
+	Ogre::Viewport*			mViewport;
+	Ogre::Camera*			mCamera;
+    Ogre::RenderWindow*		mWindow;
+	Ogre::String			mResourcePath;
+	ExampleFrameListener*	mFrameListener;
 
 private:
 	void		configure();
