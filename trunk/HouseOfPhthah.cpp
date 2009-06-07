@@ -133,7 +133,8 @@ void CHouseOfPhthah::createScene()
 		
 		// Create a skydome
 		mSkyDome.setPath("Examples/CloudySky");
-		mSkyDome.push(mSceneMgr);
+		mSkyDome.push();
+		//mSkyDome.setSkyDome(true, "");
 		
 		// Load terrain:
 		std::string terrain_cfg("terrain.cfg");
@@ -143,15 +144,17 @@ void CHouseOfPhthah::createScene()
           //  Ray(mCamera->getPosition(), Vector3::NEGATIVE_UNIT_Y));
 		
 
-		// Set a nice viewpoint
-        mCamera->setPosition(707,2500,528);
+		//// Set a nice viewpoint
+  //      mCamera->setPosition(707,2500,528);
         mCamera->setOrientation(Quaternion(-0.3486, 0.0122, 0.9365, 0.0329));
 
 		
 		Entity *ent;
-		ent = mSceneMgr->createEntity("head", "ogrehead.mesh");
+		ent = mSceneMgr->createEntity("domeentity", "PhthahSkyDome.mesh");
 		// Attach to child of root node, better for culling (otherwise bounds are the combination of the 2)
-		mSceneMgr->getRootSceneNode()->createChildSceneNode()->attachObject(ent);
+		mSceneMgr->getRootSceneNode()->createChildSceneNode("domenode")->attachObject(ent);
+		mSceneMgr->getSceneNode("domenode")->scale(100,100,100);
+		mSceneMgr->getSceneNode("domenode")->setPosition(mCamera->getPosition());
 }
 
 void CHouseOfPhthah::destroyScene(){}
