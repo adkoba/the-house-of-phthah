@@ -2,8 +2,7 @@
 #include "HouseOfPhthah.h"
 
 CTerrain::CTerrain(  ) :
-	mRaySceneQuery(NULL),
-	mFrameListener(NULL)
+	mRaySceneQuery(NULL)
 {
 	
 }
@@ -12,10 +11,9 @@ CTerrain::~CTerrain()
 {
 	//SceneManager::destroyQuery(mRaySceneQuery);
 	if (mRaySceneQuery) delete mRaySceneQuery;
-	if (mFrameListener) delete mFrameListener;
 }
 
-void CTerrain::Init( std::string terrain_cfg )
+void CTerrain::Init( const std::string& terrain_cfg )
 {
 	Ogre::Root* root = Ogre::Singleton<Root>::getSingletonPtr();
 	//Ogre::SceneManager* sceneMgr = root->createSceneManager("TerrainSceneManager");
@@ -32,18 +30,4 @@ void CTerrain::Init( std::string terrain_cfg )
 
 	mRaySceneQuery = sceneMgr->createRayQuery(
             Ray(camera->getPosition(), Vector3::NEGATIVE_UNIT_Y));
-
-	createFrameListener();
-}
-
-// Create new frame listener
-void CTerrain::createFrameListener()
-{
-	mFrameListener= new CTerrainFrameListener( 
-		Ogre::Singleton<CHouseOfPhthah>::getSingleton().mWindow, 
-		Ogre::Singleton<CHouseOfPhthah>::getSingleton().mCamera,
-		mRaySceneQuery
-		);
-	//Singleton<Root>::getSingletonPtr()->addFrameListener(mFrameListener);
-	Ogre::Singleton<CHouseOfPhthah>::getSingleton().mRoot->addFrameListener(mFrameListener);
 }
