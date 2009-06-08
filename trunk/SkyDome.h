@@ -6,17 +6,23 @@
 class CSkyDome
 {
 public:
-	CSkyDome(const Ogre::String& MaterialName = "");
+	CSkyDome();
 	CSkyDome(const CSkyDome& Copy);
 	~CSkyDome();
-	const Ogre::String& getPath() const { return mPath; };
-	void push(bool enable = true);
-	void setPath(const Ogre::String& Path) { mPath = Path; };
-	void setSkyDome(const Ogre::String &materialName);
+	const Ogre::String& getMaterialName() const { return mMaterialName; };
+	const Ogre::String& getMeshName() const { return mMeshName; };
+	//void push(bool enable = true) { Ogre::Singleton<CHouseOfPhthah>::getSingleton().mSceneMgr->setSkyDome(enable, mPath); };
+	void setMaterialName(const Ogre::String& materialName) { mMaterialName = materialName; };
+	void setMeshName(const Ogre::String& meshName) { mMeshName = meshName; };
+	void createSkyDome();
 
 private:
+	Ogre::String mMaterialName;
+	Ogre::String mMeshName;
+	Ogre::SceneNode* mSkyDomeNode;
 	Ogre::Entity* mSkyDomeEntity;
-	Ogre::String		mPath;
+	const Ogre::String mNodeId;
+	const Ogre::String mEntityId;
 };
 
 #endif // _SkyDome_

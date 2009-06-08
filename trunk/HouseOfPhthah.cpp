@@ -95,6 +95,7 @@ void CHouseOfPhthah::chooseSceneManager()
 {
 	// Create the SceneManager, in this case a generic one
 	//mSceneMgr = mRoot->createSceneManager(Ogre::ST_GENERIC, "House Of Phthah");
+	//mSceneMgr = static_cast<Phthah::CSceneManager*>(mRoot->createSceneManager("TerrainSceneManager"));
 	mSceneMgr = mRoot->createSceneManager("TerrainSceneManager");
 }
 void CHouseOfPhthah::createCamera()
@@ -132,9 +133,10 @@ void CHouseOfPhthah::createScene()
         mWindow->getViewport(0)->setBackgroundColour(fadeColour);*/
 		
 		// Create a skydome
-		mSkyDome.setPath("Examples/CloudySky");
-		mSkyDome.push();
-		//mSkyDome.setSkyDome(true, "");
+		mSkyDome.setMaterialName("Examples/CloudySky");
+		mSkyDome.setMeshName("PhthahSkyDome.mesh");
+		mSkyDome.createSkyDome();
+		//mSceneMgr->setTrueSkyDome(true,"Examples/CloudySky");
 		
 		// Load terrain:
 		std::string terrain_cfg("terrain.cfg");
@@ -150,11 +152,10 @@ void CHouseOfPhthah::createScene()
 
 		
 		Entity *ent;
-		ent = mSceneMgr->createEntity("domeentity", "PhthahSkyDome.mesh");
+		ent = mSceneMgr->createEntity("head", "ogrehead.mesh");
 		// Attach to child of root node, better for culling (otherwise bounds are the combination of the 2)
-		mSceneMgr->getRootSceneNode()->createChildSceneNode("domenode")->attachObject(ent);
-		mSceneMgr->getSceneNode("domenode")->scale(100,100,100);
-		mSceneMgr->getSceneNode("domenode")->setPosition(mCamera->getPosition());
+		mSceneMgr->getRootSceneNode()->createChildSceneNode()->attachObject(ent);
+
 }
 
 void CHouseOfPhthah::destroyScene(){}
