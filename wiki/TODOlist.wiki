@@ -1,0 +1,28 @@
+#summary One-sentence summary of this page.
+#labels TODO
+
+= Introduction =
+
+List of things we will take care of next, just to keep in touch and have a good communication in the team.
+
+
+= Details =
+
+<b>Bugs I have to take care of:</b> (not that important as we have the Issue tracklist)
+ * xxx: 
+
+<b>Things I have to do:</b>
+ * Thibault: Reorganizing the ground
+
+<b>Things I want to do:</b>
+ 
+ * Thibault: Add water with waves
+ * Thibault: Add reflection on the water
+ * Thibault: Take care of the day/night cycle with the skyDome and a complex shader
+
+ * Benjamin: ...
+
+
+
+
+
