@@ -9,7 +9,7 @@ List of things we will take care of next, just to keep in touch and have a good 
 = Details =
 
 <b>Bugs I have to take care of:</b> (not that important as we have the Issue tracklist)
- * xxx: 
+ * xxx: Issue 3
 
 <b>Things I have to do:</b>
  * Thibault: Reorganizing the ground
@@ -21,6 +21,4 @@ List of things we will take care of next, just to keep in touch and have a good 
  * Thibault: Take care of the day/night cycle with the skyDome and a complex shader
 
  * Benjamin: Add Caelum plugin into our project in order to have a very beautiful sky
-
-
 
