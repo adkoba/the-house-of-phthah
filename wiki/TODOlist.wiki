@@ -14,10 +14,12 @@ List of things we will take care of next, just to keep in touch and have a good 
 <b>Things I have to do:</b>
  * Thibault: Reorganizing the ground
 
+ * Benjamin: Reorganizing the current sky dome
+
 <b>Things I want to do:</b>
  
  * Thibault: Add water with waves
  * Thibault: Add reflection on the water
  * Thibault: Take care of the day/night cycle with the skyDome and a complex shader
 
- * Benjamin: Add Caelum plugin into our project in order to have a very beautiful sky
+ * Benjamin: Add Caelum plugin into our project in order to have a very beautiful sky dome
