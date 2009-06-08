@@ -69,9 +69,9 @@ bool ExampleFrameListener::frameRenderingQueued(const FrameEvent& evt)
 	if( !mMouse->buffered() || !mKeyboard->buffered() || !buffJ )
 	{
 		moveCamera();
-		// and then move the skydome
-		 SceneManager* SceneMgr = Singleton<CHouseOfPhthah>::getSingleton().mSceneMgr;
-		SceneMgr->getSceneNode("domenode")->setPosition(mCamera->getDerivedPosition());
+		// and then move the skydome (it must exist)
+		SceneManager* sceneMgr = Singleton<CHouseOfPhthah>::getSingleton().mSceneMgr;
+		sceneMgr->getSceneNode("PhthahSkyDomeNode")->setPosition(mCamera->getDerivedPosition() - Ogre::Vector3(0,50,0)); // trick to make the sky closer to the camera, thus camera can't easily see the void under the terrain
 	}
 
 	return true;

@@ -1,95 +1,71 @@
 #include "SkyDome.h"
-
 #include "HouseOfPhthah.h"
 
-CSkyDome::CSkyDome(const Ogre::String& MaterialName):
+#include <assert.h>
+
+CSkyDome::CSkyDome():
+	mMaterialName(""),
+	mMeshName(""),
+	mSkyDomeNode(NULL),
 	mSkyDomeEntity(NULL),
-	mPath(MaterialName)
+	mNodeId("PhthahSkyDomeNode"),
+	mEntityId("PhthahSkyDomeEntity")
 {
 }
 
-	CSkyDome::CSkyDome(const CSkyDome& Copy):
-	mPath(Copy.mPath)
+CSkyDome::CSkyDome(const CSkyDome& copy):
+	mMaterialName(copy.mMaterialName),
+	mMeshName(copy.mMeshName),
+	mSkyDomeNode(NULL),
+	mSkyDomeEntity(NULL),
+	mNodeId(copy.mNodeId),
+	mEntityId(copy.mEntityId)
 {
 }
 
 CSkyDome::~CSkyDome()
 {
+	delete mSkyDomeNode; mSkyDomeNode = NULL;
+	delete mSkyDomeEntity; mSkyDomeEntity = NULL;
+	// one must maybe also destroy something in the mSceneManager tree?
 }
 
-void CSkyDome::push(bool enable)
+void CSkyDome::createSkyDome()
 {
-	Ogre::Singleton<CHouseOfPhthah>::getSingleton().mSceneMgr->setSkyDome(enable, mPath);
-}
+	Ogre::SceneManager* sceneMgr = Ogre::Singleton<CHouseOfPhthah>::getSingleton().mSceneMgr;
+	Ogre::Camera* camera = Ogre::Singleton<CHouseOfPhthah>::getSingleton().mCamera;
 
-void CSkyDome::setSkyDome(const Ogre::String &materialName)
-{
-	//MaterialPtr m = Ogre::MaterialManager::getSingleton().getByName(materialName);
-//      if (m.isNull())
-//      {
-//          OGRE_EXCEPT(Exception::ERR_INVALIDPARAMS, 
-//              "Sky dome material '" + materialName + "' not found.",
-//              "SceneManager::setSkyDome");
-//      }
-    //// Make sure the material doesn't update the depth buffer
-    //m->setDepthWriteEnabled(false);
-    //// Ensure loaded
-    //m->load();
+	assert(mMeshName!=""&&mMaterialName!=""&&"Problem in CSkyDome::createSkyDome()");
 
-	Ogre::SceneNode* SkyDomeNode = Ogre::Singleton<CHouseOfPhthah>::getSingleton().mSceneMgr->getSkyDomeNode();
-	Ogre::SceneManager* SceneMgr = Ogre::Singleton<CHouseOfPhthah>::getSingleton().mSceneMgr;
+	// there should be an exception if can't find mesh or material
 
-    //mSkyDomeDrawFirst = drawFirst;
-	//mSkyDomeRenderQueue = renderQueue;
-
-    // Create node 
-    if (!SkyDomeNode)
-    {
-        SkyDomeNode = SceneMgr->createSceneNode("SkyDomeNode");
-		SkyDomeNode->scale(10,10,10);
-    }
-    else
-    {
-        SkyDomeNode->detachAllObjects();
-    }
-
-	Ogre::String entName = "PhthahSkyDome";
+  //  // Create node 
+  //  if (!mSkyDomeNode)
+  //  {
+  //      mSkyDomeNode = sceneMgr->createSceneNode(mNodeId);
+		//mSkyDomeNode->scale(100,100,100);
+		////// initial position of the skydome
+		////mSkyDomeNode->setPosition(camera->getPosition());
+  //  }
+  //  else
+  //  {
+  //      mSkyDomeNode->detachAllObjects();
+  //  }
 
     // Create entity 
-    if (mSkyDomeEntity)
-    {
-        // destroy old one, do it by name for speed
-        SceneMgr->destroyEntity(entName);
-    }
+    if (mSkyDomeEntity) sceneMgr->destroyEntity(mEntityId);
 	
-	mSkyDomeEntity = SceneMgr->createEntity(entName, "PhthahSkyDome.mesh");
+	mSkyDomeEntity = sceneMgr->createEntity(mEntityId, mMeshName);
+	mSkyDomeEntity->setMaterialName(mMaterialName);
+	mSkyDomeEntity->setRenderQueueGroup(Ogre::RENDER_QUEUE_SKIES_EARLY);
+	MaterialPtr m = MaterialManager::getSingleton().getByName(mMaterialName);
+    // Make sure the material doesn't update the depth buffer
+    m->setDepthWriteEnabled(false);
+    // Ensure loaded
+    m->load();
 
-	SkyDomeNode->attachObject(mSkyDomeEntity);
-	
+	sceneMgr->getRootSceneNode()->createChildSceneNode(mNodeId)->attachObject(mSkyDomeEntity);
+	sceneMgr->getSceneNode(mNodeId)->scale(100,100,100);
 
-//     // Set up the dome (5 planes)
-//     for (int i = 0; i < 5; ++i)
-//     {
-//         MeshPtr planeMesh = createSkydomePlane((BoxPlane)i, curvature, 
-//             tiling, distance, orientation, xsegments, ysegments, 
-//             i!=BP_UP ? ySegmentsToKeep : -1, groupName);
-
-//         String entName = "SkyDomePlane" + StringConverter::toString(i);
-
-        //// Create entity 
-        //if (mSkyDomeEntity[i])
-        //{
-        //    // destroy old one, do it by name for speed
-        //    destroyEntity(entName);
-        //}
-		//// construct manually so we don't have problems if destroyAllMovableObjects called
-		//MovableObjectFactory* factory = 
-		//	Root::getSingleton().getMovableObjectFactory(EntityFactory::FACTORY_TYPE_NAME);
-		//NameValuePairList params;
-		//params["mesh"] = planeMesh->getName();
-		//mSkyDomeEntity[i] = static_cast<Entity*>(factory->createInstance(entName, this, &params));
-//         mSkyDomeEntity[i]->setMaterialName(m->getName());
-//         mSkyDomeEntity[i]->setCastShadows(false);
-
-//     } // for each plane
+	//mSkyDomeNode->attachObject(mSkyDomeEntity);
 }
