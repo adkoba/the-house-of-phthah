@@ -2,9 +2,11 @@
 #define _HouseOfPhthah_
 
 #include <Ogre.h>
+#include "Macros.h"
 #include "ExampleFrameListener.h"
 #include "SkyDome.h"
 #include "Terrain.h"
+#include "Water.h"
 
 class CHouseOfPhthah : public Ogre::Singleton< CHouseOfPhthah >
 {
@@ -44,6 +46,7 @@ private:
 private:
 	CSkyDome	mSkyDome;
 	CTerrain	mTerrain;
+	CWater		mWater;
 };
 
 #endif //_HouseOfPhthah_

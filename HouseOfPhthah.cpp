@@ -107,7 +107,7 @@ void CHouseOfPhthah::createCamera()
 	mCamera->setPosition(Ogre::Vector3(128,25,128));
 	// Look back along -Z
 	mCamera->lookAt(Ogre::Vector3(0,0,-300));
-	mCamera->setNearClipDistance(5);
+	mCamera->setNearClipDistance(1);
 }
 
 void CHouseOfPhthah::createFrameListener()
@@ -137,25 +137,23 @@ void CHouseOfPhthah::createScene()
 		mSkyDome.setMeshName("PhthahSkyDome.mesh");
 		mSkyDome.createSkyDome();
 		//mSceneMgr->setTrueSkyDome(true,"Examples/CloudySky");
+
+		//mSceneMgr->setSkyBox(true, "Examples/SpaceSkyBox", 50 );
 		
 		// Load terrain:
 		std::string terrain_cfg("terrain.cfg");
-        mTerrain.Init( terrain_cfg );
-
-		//mRaySceneQuery = mSceneMgr->createRayQuery(
-          //  Ray(mCamera->getPosition(), Vector3::NEGATIVE_UNIT_Y));
-		
+        mTerrain.Init( terrain_cfg );		
 
 		//// Set a nice viewpoint
   //      mCamera->setPosition(707,2500,528);
         mCamera->setOrientation(Quaternion(-0.3486, 0.0122, 0.9365, 0.0329));
 
+		mWater.init();
 		
 		Entity *ent;
 		ent = mSceneMgr->createEntity("head", "ogrehead.mesh");
 		// Attach to child of root node, better for culling (otherwise bounds are the combination of the 2)
 		mSceneMgr->getRootSceneNode()->createChildSceneNode()->attachObject(ent);
-
 }
 
 void CHouseOfPhthah::destroyScene(){}
