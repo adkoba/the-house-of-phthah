@@ -16,6 +16,7 @@ List of things we will take care of next, just to keep in touch and have a good 
 
  * ~~Benjamin: Reorganizing the current sky dome~~
  * Benjamin: Add Caelum plugin into our project in order to have a very beautiful sky dome
+ * Benjamin: Understand how the terrain behave to make it work properly
 
 <b>Things I want to do:</b>
  
