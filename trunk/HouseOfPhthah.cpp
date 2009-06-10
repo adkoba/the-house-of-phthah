@@ -33,7 +33,7 @@ void CHouseOfPhthah::Run()
 	mRoot->startRendering();
 }
 
-void CHouseOfPhthah::Start()
+bool CHouseOfPhthah::Start()
 {
 	Ogre::String pluginsPath;
 	// only use plugins.cfg if not static
@@ -46,7 +46,8 @@ void CHouseOfPhthah::Start()
 
 	setupResources();
 
-	configure();
+    bool carryOn = configure();
+    if (!carryOn) return false;
 
 	chooseSceneManager();
 	createCamera();
@@ -64,6 +65,8 @@ void CHouseOfPhthah::Start()
 	createScene();
 
 	createFrameListener();
+
+	return true;
 }
 
 void CHouseOfPhthah::Exit()
@@ -78,7 +81,7 @@ void CHouseOfPhthah::Exit()
 
 
 /** Configures the application - returns false if the user chooses to abandon configuration. */
-void CHouseOfPhthah::configure()
+bool CHouseOfPhthah::configure()
 {
 	// Show the configuration dialog and initialise the system
 	// You can skip this and use root.restoreConfig() to load configuration
@@ -88,6 +91,12 @@ void CHouseOfPhthah::configure()
 		// If returned true, user clicked OK so initialise
 		// Here we choose to let the system create a default rendering window by passing 'true'
 		mWindow = mRoot->initialise(true);
+		return true;
+	}
+	else
+	{
+		// user clicked cancel so initialise
+		return false;
 	}
 }
 
@@ -107,6 +116,7 @@ void CHouseOfPhthah::createCamera()
 	mCamera->setPosition(Ogre::Vector3(128,25,128));
 	// Look back along -Z
 	mCamera->lookAt(Ogre::Vector3(0,0,-300));
+	// what is that for?
 	mCamera->setNearClipDistance(1);
 }
 
@@ -120,40 +130,34 @@ void CHouseOfPhthah::createFrameListener()
 // Init Rendering stuff
 void CHouseOfPhthah::createScene()
 {
-		// Set ambient light
-        mSceneMgr->setAmbientLight(ColourValue(0.5, 0.5, 0.5));
+	// Set ambient light
+    mSceneMgr->setAmbientLight(ColourValue(0.5, 0.5, 0.5));
 
-        // Create a light
-        Light* light = mSceneMgr->createLight("MainLight");
-        light->setPosition(20,80,50);
+    // Create a light
+    Light* light = mSceneMgr->createLight("MainLight");
+    light->setPosition(20,80,50);
 
-		// Fog
-		/*ColourValue fadeColour(0.93, 0.86, 0.76);
-        mSceneMgr->setFog( FOG_LINEAR, fadeColour, .001, 500, 1000);
-        mWindow->getViewport(0)->setBackgroundColour(fadeColour);*/
-		
-		// Create a skydome
-		mSkyDome.setMaterialName("Examples/CloudySky");
-		mSkyDome.setMeshName("PhthahSkyDome.mesh");
-		mSkyDome.createSkyDome();
-		//mSceneMgr->setTrueSkyDome(true,"Examples/CloudySky");
+	// Fog
+	/*ColourValue fadeColour(0.93, 0.86, 0.76);
+    mSceneMgr->setFog( FOG_LINEAR, fadeColour, .001, 500, 1000);
+    mWindow->getViewport(0)->setBackgroundColour(fadeColour);*/
+	
+	// Create a skydome
+	mSkyDome.createSkyDome("PhthahSkyDome.mesh", "Examples/CloudySky", "PhthahSkyDome", "PhthahSkyDome");
+	
+	// Load terrain:
+    mTerrain.createTerrain("terrain.cfg");
 
-		//mSceneMgr->setSkyBox(true, "Examples/SpaceSkyBox", 50 );
-		
-		// Load terrain:
-		std::string terrain_cfg("terrain.cfg");
-        mTerrain.Init( terrain_cfg );		
+	//// Set a nice viewpoint
+//      mCamera->setPosition(707,2500,528);
+    mCamera->setOrientation(Quaternion(-0.3486, 0.0122, 0.9365, 0.0329));
 
-		//// Set a nice viewpoint
-  //      mCamera->setPosition(707,2500,528);
-        mCamera->setOrientation(Quaternion(-0.3486, 0.0122, 0.9365, 0.0329));
-
-		mWater.init();
-		
-		Entity *ent;
-		ent = mSceneMgr->createEntity("head", "ogrehead.mesh");
-		// Attach to child of root node, better for culling (otherwise bounds are the combination of the 2)
-		mSceneMgr->getRootSceneNode()->createChildSceneNode()->attachObject(ent);
+	mWater.init();
+	
+	Entity *ent;
+	ent = mSceneMgr->createEntity("head", "ogrehead.mesh");
+	// Attach to child of root node, better for culling (otherwise bounds are the combination of the 2)
+	mSceneMgr->getRootSceneNode()->createChildSceneNode()->attachObject(ent);
 }
 
 void CHouseOfPhthah::destroyScene(){}
