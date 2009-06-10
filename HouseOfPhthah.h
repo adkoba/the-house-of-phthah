@@ -17,12 +17,11 @@ public :
 	static CHouseOfPhthah& getSingleton(void);
     static CHouseOfPhthah* getSingletonPtr(void);
 
-	
-	void Start();
+	bool Start();
 	void Run();
 	void Exit();
 	
-public :
+public:
 	Ogre::Root*				mRoot;
 	Ogre::SceneManager*		mSceneMgr;
 	Ogre::Viewport*			mViewport;
@@ -32,7 +31,7 @@ public :
 	ExampleFrameListener*	mFrameListener;
 
 private:
-	void		configure();
+	bool		configure();
 	void		chooseSceneManager();
 	void		createCamera();
 	void		createScene();

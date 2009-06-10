@@ -20,8 +20,10 @@ int main(int argc, char **argv)
 {
 	try {
 		new CHouseOfPhthah();
-		CHouseOfPhthah::getSingleton().Start();
-		CHouseOfPhthah::getSingleton().Run();
+		if ( CHouseOfPhthah::getSingleton().Start() )
+		{
+			CHouseOfPhthah::getSingleton().Run();
+		}
 		CHouseOfPhthah::getSingleton().Exit();
 
 	} catch( Ogre::Exception &e ) { 
