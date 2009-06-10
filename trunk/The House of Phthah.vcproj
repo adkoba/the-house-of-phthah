@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="9,00"
+	Version="9.00"
 	Name="The House of Phthah"
 	ProjectGUID="{8582B961-E282-4F38-8B09-0AC2CBF92715}"
 	RootNamespace="TheHouseofPhthah"
@@ -247,6 +247,10 @@
 				RelativePath=".\Terrain.cpp"
 				>
 			</File>
+			<File
+				RelativePath=".\Water.cpp"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="Header Files"
@@ -262,11 +266,19 @@
 				>
 			</File>
 			<File
+				RelativePath=".\Macros.h"
+				>
+			</File>
+			<File
 				RelativePath=".\SkyDome.h"
 				>
 			</File>
 			<File
 				RelativePath=".\Terrain.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Water.h"
 				>
 			</File>
 		</Filter>
