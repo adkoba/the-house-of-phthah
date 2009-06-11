@@ -1,5 +1,10 @@
 #include "HouseOfPhthah.h"
 
+#include <OgreRoot.h>
+
+#include "ExampleFrameListener.h"
+#include "Macros.h"
+
 // Init Singleton:
 template<> CHouseOfPhthah* Ogre::Singleton<CHouseOfPhthah>::ms_Singleton = 0;
 CHouseOfPhthah* CHouseOfPhthah::getSingletonPtr(void)
@@ -19,7 +24,8 @@ CHouseOfPhthah::CHouseOfPhthah() :
 	mWindow(NULL),
 	mViewport(NULL),
 	mCamera(NULL),
-	mResourcePath("")
+	mResourcePath(""),
+	mFrameListener(NULL)
 {
 }
 
@@ -74,9 +80,9 @@ void CHouseOfPhthah::Exit()
 	/*if (mSceneMgr) delete mSceneMgr;
 	if (mViewport) delete mViewport;
 	if (mCamera) delete mCamera;
-	if (mWindow) delete mWindow;
-	if (mFrameListener) delete mFrameListener;*/
-	//if (mRoot!=0) delete mRoot;
+	if (mWindow) delete mWindow;*/
+	SAFE_DELETE( mFrameListener )
+	SAFE_DELETE( mRoot )
 }	
 
 
@@ -102,10 +108,9 @@ bool CHouseOfPhthah::configure()
 
 void CHouseOfPhthah::chooseSceneManager()
 {
-	// Create the SceneManager, in this case a generic one
-	//mSceneMgr = mRoot->createSceneManager(Ogre::ST_GENERIC, "House Of Phthah");
-	//mSceneMgr = static_cast<Phthah::CSceneManager*>(mRoot->createSceneManager("TerrainSceneManager"));
-	mSceneMgr = mRoot->createSceneManager("TerrainSceneManager");
+	// Create the SceneManager, in this case a ST_EXTERIOR_CLOSE one ( or "TerrainSceneManager", it's the same)
+	// and we give it an instance name "main scene"
+	mSceneMgr = mRoot->createSceneManager("TerrainSceneManager","MainScene");
 }
 void CHouseOfPhthah::createCamera()
 {
@@ -118,6 +123,8 @@ void CHouseOfPhthah::createCamera()
 	mCamera->lookAt(Ogre::Vector3(0,0,-300));
 	// what is that for?
 	mCamera->setNearClipDistance(1);
+	// we should erase this line since I don't see any difference when commented, and I dunno what it's doing
+    mCamera->setOrientation(Quaternion(-0.3486, 0.0122, 0.9365, 0.0329));
 }
 
 void CHouseOfPhthah::createFrameListener()
@@ -145,13 +152,10 @@ void CHouseOfPhthah::createScene()
 	// Create a skydome
 	mSkyDome.createSkyDome("PhthahSkyDome.mesh", "Examples/CloudySky", "PhthahSkyDome", "PhthahSkyDome");
 	
-	// Load terrain:
+	// Load terrain
     mTerrain.createTerrain("terrain.cfg");
 
-	//// Set a nice viewpoint
-//      mCamera->setPosition(707,2500,528);
-    mCamera->setOrientation(Quaternion(-0.3486, 0.0122, 0.9365, 0.0329));
-
+	// Initialize water
 	mWater.init();
 	
 	Entity *ent;

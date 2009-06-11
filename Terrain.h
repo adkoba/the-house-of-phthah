@@ -1,7 +1,9 @@
 #ifndef _Terrain_
 #define _Terrain_
 
-#include <Ogre.h>
+#include <OgreFrameListener.h>
+#include <OgreSceneQuery.h>
+#include <OgreString.h>
 
 using namespace Ogre;
 
@@ -9,11 +11,12 @@ using namespace Ogre;
 class CTerrainListener: public FrameListener
 {
 public:
-    CTerrainListener();
+    CTerrainListener(Camera* camera);
 	virtual ~CTerrainListener();
     bool frameRenderingQueued(const FrameEvent& evt);
 	void setRaySceneQuery(RaySceneQuery* const RaySceneQuery) { mRaySceneQuery = RaySceneQuery; };
 private:
+	Camera* mCamera;
 	Ray mUpdateRay;
 	RaySceneQuery*	mRaySceneQuery;
 };

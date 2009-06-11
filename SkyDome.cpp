@@ -1,34 +1,64 @@
 #include "SkyDome.h"
-#include "HouseOfPhthah.h"
 
-CSkyDomeListener::CSkyDomeListener():
-	mNodeId(NULL)
+#include <OgreEntity.h>
+#include <OgreMaterialManager.h> 
+#include <OgreRoot.h>
+
+#include "Macros.h"
+
+CSkyDomeListener::CSkyDomeListener(Camera* camera, SceneNode* skyDomeNode):
+	mCamera(camera),
+	mSkyDomeNode(skyDomeNode),
+	mCaelumSystem(NULL)
 {
+	//Root* root = Root::getSingletonPtr();
+ //   SceneManager* sceneMgr = root->getSceneManager("MainScene");
+
+ //   // Pick components to create in the demo.
+ //   // You can comment any of those and it should still work
+ //   // Trying to disable one of these can be useful in finding problems.
+ //   Caelum::CaelumSystem::CaelumComponent componentMask;
+ //   componentMask = static_cast<Caelum::CaelumSystem::CaelumComponent> (
+ //           Caelum::CaelumSystem::CAELUM_COMPONENT_SUN |				
+ //           Caelum::CaelumSystem::CAELUM_COMPONENT_MOON |
+ //           Caelum::CaelumSystem::CAELUM_COMPONENT_SKY_DOME |
+ //           //Caelum::CaelumSystem::CAELUM_COMPONENT_IMAGE_STARFIELD |
+ //           Caelum::CaelumSystem::CAELUM_COMPONENT_POINT_STARFIELD |
+ //           Caelum::CaelumSystem::CAELUM_COMPONENT_CLOUDS |
+ //           0);
+ //   componentMask = Caelum::CaelumSystem::CAELUM_COMPONENTS_DEFAULT;
+
+ //   // Initialise CaelumSystem.
+ //   mCaelumSystem = new Caelum::CaelumSystem (root, sceneMgr, componentMask);
+
+ //   // Set time acceleration.
+ //   mCaelumSystem->getUniversalClock()->setTimeScale (512);
+
+ //   // Register caelum as a listener.
+	//RenderWindow* mWindow = root->getAutoCreatedWindow();
+ //   mWindow->addListener (mCaelumSystem);
+ //   Root::getSingletonPtr()->addFrameListener (mCaelumSystem);
 }
 
 CSkyDomeListener::~CSkyDomeListener()
 {
-	// I don't want to delete it since CSkyDome can handle it
-	mNodeId = NULL;
+	// I don't want to delete these things since CSkyDome can handle it
+	mCamera = NULL;
+	mSkyDomeNode = NULL;
+    if (mCaelumSystem)
+	{
+        mCaelumSystem->shutdown(false);
+        mCaelumSystem = NULL;
+    }
 }
 
 bool  CSkyDomeListener::frameStarted(const Ogre::FrameEvent& evt)
 {
-	SceneManager* sceneMgr = Singleton<CHouseOfPhthah>::getSingleton().mSceneMgr;
-	Ogre::Camera* camera = Ogre::Singleton<CHouseOfPhthah>::getSingleton().mCamera;
+	assert(mCamera&&mSkyDomeNode&&"Problem in CSkyDomeListener::frameStarted()");
 	// position the skydome at camera position as frequently as possible (I should assert that SkyDomeNode exists)
-	sceneMgr->getSceneNode(*mNodeId)->setPosition(camera->getPosition() - Ogre::Vector3(0,50,0)); // trick to make the sky closer to the camera, thus camera can't easily see the void under the terrain
+	// trick to make the sky closer to the camera, thus player can't easily see the void under the terrain unless he's very close to the border
+	mSkyDomeNode->setPosition(mCamera->getPosition() - Ogre::Vector3(0,50,0)); 
 	return true;
-}
-
-bool  CSkyDomeListener::frameRenderingQueued(const Ogre::FrameEvent& evt)
-{
-	return frameStarted(evt);
-}
-
-bool  CSkyDomeListener::frameEnded(const Ogre::FrameEvent& evt)
-{
-	return frameStarted(evt);
 }
 
 CSkyDome::CSkyDome():
@@ -39,7 +69,6 @@ CSkyDome::CSkyDome():
 	mMeshName(""),
 	mNodeId("")
 {
-	mListener = new CSkyDomeListener();
 }
 
 CSkyDome::CSkyDome(const CSkyDome& copy):
@@ -50,13 +79,12 @@ CSkyDome::CSkyDome(const CSkyDome& copy):
 	mMeshName(copy.mMeshName),
 	mNodeId(copy.mNodeId)
 {
-	mListener = new CSkyDomeListener();
 }
 
 CSkyDome::~CSkyDome()
 {
 	// do I have to detach it from Ogre::Root first?
-	delete mListener; mListener = NULL;
+	SAFE_DELETE( mListener )
 	// do I have to detach something from any tree?
 }
 
@@ -68,27 +96,9 @@ void CSkyDome::createSkyDome(const Ogre::String MeshName, const Ogre::String Mat
 	mMeshName = MeshName;
 	mNodeId = NodeId;
 	mEntityId = EntityId;
-	mListener->setNodeId(mNodeId);
 
-	Ogre::Root* root = Ogre::Singleton<CHouseOfPhthah>::getSingleton().mRoot;
-	Ogre::SceneManager* sceneMgr = Ogre::Singleton<CHouseOfPhthah>::getSingleton().mSceneMgr;
-
-	root->addFrameListener(mListener);
-
-	// there should be an exception if can't find mesh or material
-
-  //  // Create node 
-  //  if (!mSkyDomeNode)
-  //  {
-  //      mSkyDomeNode = sceneMgr->createSceneNode(mNodeId);
-		//mSkyDomeNode->scale(100,100,100);
-		////// initial position of the skydome
-		////mSkyDomeNode->setPosition(camera->getPosition());
-  //  }
-  //  else
-  //  {
-  //      mSkyDomeNode->detachAllObjects();
-  //  }
+	Root* root = Root::getSingletonPtr();
+	SceneManager* sceneMgr = root->getSceneManager("MainScene");
 
     // Destroy previous entity
 	if (mSkyDomeEntity) sceneMgr->destroyEntity(mEntityId);
@@ -105,5 +115,8 @@ void CSkyDome::createSkyDome(const Ogre::String MeshName, const Ogre::String Mat
 	sceneMgr->getRootSceneNode()->createChildSceneNode(mNodeId)->attachObject(mSkyDomeEntity);
 	sceneMgr->getSceneNode(mNodeId)->scale(100,100,100);
 
+	// create the listener
+	mListener = new CSkyDomeListener( sceneMgr->getCamera("PlayerCam"), sceneMgr->getSceneNode(mNodeId) );
+	root->addFrameListener(mListener);
 	//mSkyDomeNode->attachObject(mSkyDomeEntity);
 }

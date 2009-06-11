@@ -1,9 +1,18 @@
 #ifndef _Water_
 #define _Water_
 
-#include "Ogre.h"
+#include <OgreFrameListener.h>
+#include <OgreMaterial.h> 
+#include <OgreRenderTargetListener.h> 
+#include <OgreString.h>
+#include <OgreTexture.h> 
 
 using namespace Ogre;
+
+class Ogre::Camera;
+class Ogre::Entity;
+class Ogre::MovablePlane;
+class Ogre::SceneNode;
 
 class RenderToTextureFrameListener : public FrameListener
 {
@@ -19,20 +28,7 @@ public:
     {
 
     }
-    bool frameRenderingQueued(const FrameEvent& evt)
-    {
-        if( FrameListener::frameRenderingQueued(evt) == false )
-		return false;
-
-        // Make sure reflection camera is updated too
-        mReflectCam->setOrientation(mCamera->getOrientation());
-        mReflectCam->setPosition(mCamera->getPosition());
-
-        // Rotate plane
-        //mPlaneNode->yaw(Degree(30 * evt.timeSinceLastFrame), Node::TS_PARENT);
-
-        return true;
-    }
+    bool frameRenderingQueued(const FrameEvent& evt);
 };
 
 

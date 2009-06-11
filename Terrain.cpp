@@ -1,34 +1,42 @@
 #include "Terrain.h"
-#include "HouseOfPhthah.h"
 
-CTerrainListener::CTerrainListener()
+#include <OgreRenderSystem.h> 
+#include <OgreRoot.h>
+
+#include "Macros.h"
+
+CTerrainListener::CTerrainListener(Camera* camera):
+	mCamera(camera),
+	mRaySceneQuery(NULL)
 {
 }
 
 CTerrainListener::~CTerrainListener()
 {
+	// make sure not to delete the camera!!
+	mCamera = NULL;
 	// is it really clean?
 	//SceneManager::destroyQuery(mRaySceneQuery);
-	delete mRaySceneQuery; mRaySceneQuery = NULL;
+	SAFE_DELETE( mRaySceneQuery )
 }
 bool CTerrainListener::frameRenderingQueued(const FrameEvent& evt)
 {
     if( FrameListener::frameRenderingQueued(evt) == false )
 	return false;
 
-	Ogre::Camera* camera = Ogre::Singleton<CHouseOfPhthah>::getSingleton().mCamera;
+	assert(mCamera&&mRaySceneQuery&&"Problem in CTerrainListener::frameRenderingQueued()");
 
     // clamp to terrain
-    mUpdateRay.setOrigin(camera->getPosition());
+    mUpdateRay.setOrigin(mCamera->getPosition());
     mUpdateRay.setDirection(Vector3::NEGATIVE_UNIT_Y);
     mRaySceneQuery->setRay(mUpdateRay);
     RaySceneQueryResult& qryResult = mRaySceneQuery->execute();
     RaySceneQueryResult::iterator i = qryResult.begin();
     if (i != qryResult.end() && i->worldFragment)
     {
-        camera->setPosition(camera->getPosition().x, 
+        mCamera->setPosition(mCamera->getPosition().x, 
 							i->worldFragment->singleIntersection.y + 10, 
-							camera->getPosition().z);
+							mCamera->getPosition().z);
     }
 
     return true;
@@ -38,13 +46,12 @@ CTerrain::CTerrain():
 	mListener(NULL),
 	mTerrainId("")
 {
-	mListener = new CTerrainListener();
 }
 
 CTerrain::~CTerrain()
 {
 	// do I have to detach it from Ogre::Root first?
-	delete mListener; mListener = NULL;
+	SAFE_DELETE( mListener )
 	// do I have to detach something from any tree?
 }
 
@@ -54,10 +61,11 @@ void CTerrain::createTerrain(const String TerrainId)
 
 	mTerrainId = TerrainId;
 
-	Ogre::Root* root = Ogre::Singleton<Root>::getSingletonPtr();
-	Ogre::SceneManager* sceneMgr = Ogre::Singleton<CHouseOfPhthah>::getSingleton().mSceneMgr;
-	Ogre::Camera* camera = Ogre::Singleton<CHouseOfPhthah>::getSingleton().mCamera;
+	Root* root = Root::getSingletonPtr();
+	SceneManager* sceneMgr = root->getSceneManager("MainScene");
+	Camera* camera = sceneMgr->getCamera("PlayerCam");
 
+	mListener = new CTerrainListener(camera);
 	mListener->setRaySceneQuery( sceneMgr->createRayQuery( Ray(camera->getPosition(), Vector3::NEGATIVE_UNIT_Y) ) );
 	root->addFrameListener(mListener);
 

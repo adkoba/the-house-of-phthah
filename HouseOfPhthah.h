@@ -1,12 +1,19 @@
 #ifndef _HouseOfPhthah_
 #define _HouseOfPhthah_
 
-#include <Ogre.h>
+#include <OgreSingleton.h>
+#include <OgreString.h>
 #include "Macros.h"
-#include "ExampleFrameListener.h"
 #include "SkyDome.h"
 #include "Terrain.h"
 #include "Water.h"
+
+class Ogre::Root;
+class Ogre::SceneManager;
+class Ogre::Viewport;
+class Ogre::Camera;
+class Ogre::RenderWindow;
+class ExampleFrameListener;
 
 class CHouseOfPhthah : public Ogre::Singleton< CHouseOfPhthah >
 {
