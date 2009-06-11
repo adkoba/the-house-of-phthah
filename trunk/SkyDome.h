@@ -1,19 +1,22 @@
 #ifndef _SkyDome_
 #define _SkyDome_
 
-#include <Ogre.h>
+#include <Caelum.h>
+#include <OgreFrameListener.h>
+#include <OgreString.h>
+
+using namespace Ogre;
 
 class CSkyDomeListener: public Ogre::FrameListener
 {
 public:
-	CSkyDomeListener();
+	CSkyDomeListener(Camera* camera, SceneNode* skyDomeNode);
 	virtual ~CSkyDomeListener();
 	bool frameStarted(const Ogre::FrameEvent& evt);
-	bool frameRenderingQueued(const Ogre::FrameEvent& evt);
-	bool frameEnded(const Ogre::FrameEvent& evt);
-	void setNodeId(const Ogre::String& NodeId) { mNodeId = &NodeId; };
 private:
-	const Ogre::String* mNodeId;
+	Camera* mCamera;
+	SceneNode* mSkyDomeNode;
+    Caelum::CaelumSystem *mCaelumSystem;
 };
 
 class CSkyDome

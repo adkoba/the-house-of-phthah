@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="9.00"
+	Version="9,00"
 	Name="The House of Phthah"
 	ProjectGUID="{8582B961-E282-4F38-8B09-0AC2CBF92715}"
 	RootNamespace="TheHouseofPhthah"
@@ -41,7 +41,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
-				AdditionalIncludeDirectories="C:\OgreSDKVisual\include;C:\OgreSDK\include"
+				AdditionalIncludeDirectories=".\plugin\Caelum\include; $(OGRE_HOME)\include"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -61,9 +61,9 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="OgreMain_d.lib OIS_d.lib"
+				AdditionalDependencies="caelum_d.lib OgreMain_d.lib OIS_d.lib"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="$(OGRE_HOME)\lib; C:\OgreSDK\lib"
+				AdditionalLibraryDirectories=".\plugin\Caelum\debug; $(OGRE_HOME)\lib"
 				GenerateDebugInformation="true"
 				SubSystem="2"
 				TargetMachine="1"
@@ -117,7 +117,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				EnableIntrinsicFunctions="true"
-				AdditionalIncludeDirectories="C:\OgreSDKVisual\include; C:\OgreSDK\include"
+				AdditionalIncludeDirectories=".\plugin\Caelum\include; $(OGRE_HOME)\include"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="true"
@@ -136,9 +136,9 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="OgreMain.lib OIS.lib"
+				AdditionalDependencies="caelum.lib OgreMain.lib OIS.lib"
 				LinkIncremental="1"
-				AdditionalLibraryDirectories="C:\OgreSDKVisual\lib; C:\OgreSDK\lib"
+				AdditionalLibraryDirectories=".\plugin\Caelum\release; $(OGRE_HOME)\lib"
 				GenerateDebugInformation="true"
 				SubSystem="2"
 				OptimizeReferences="2"

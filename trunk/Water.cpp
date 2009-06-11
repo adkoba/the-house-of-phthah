@@ -2,6 +2,28 @@
 #include "Macros.h"
 #include "HouseOfPhthah.h"
 
+//#include <OgreEntity.h>
+//#include <OgreMeshManager.h>
+//#include <OgreRoot.h>
+//#include <OgreTextureManager.h>
+
+#include <Ogre.h>
+
+bool RenderToTextureFrameListener::frameRenderingQueued(const FrameEvent& evt)
+{
+    if( FrameListener::frameRenderingQueued(evt) == false )
+	return false;
+
+    // Make sure reflection camera is updated too
+    mReflectCam->setOrientation(mCamera->getOrientation());
+    mReflectCam->setPosition(mCamera->getPosition());
+
+    // Rotate plane
+    //mPlaneNode->yaw(Degree(30 * evt.timeSinceLastFrame), Node::TS_PARENT);
+
+    return true;
+}
+
 CWater::CWater() :
 	mPlane(NULL),
 	mPlaneEnt(NULL),

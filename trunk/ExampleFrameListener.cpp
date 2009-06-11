@@ -1,6 +1,8 @@
 #include "ExampleFrameListener.h"
 #include "HouseOfPhthah.h"
 
+#include <Ogre.h>
+
 // Constructor takes a RenderWindow because it uses that to determine input context
 ExampleFrameListener::ExampleFrameListener(RenderWindow* win, Camera* cam, bool bufferedKeys, bool bufferedMouse, bool bufferedJoy) :
 	mCamera(cam),
