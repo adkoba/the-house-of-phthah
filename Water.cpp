@@ -1,5 +1,6 @@
 #include "Water.h"
 #include "Macros.h"
+#include "Globals.h"
 #include "HouseOfPhthah.h"
 
 //#include <OgreEntity.h>
@@ -18,8 +19,9 @@ bool RenderToTextureFrameListener::frameRenderingQueued(const FrameEvent& evt)
     mReflectCam->setOrientation(mCamera->getOrientation());
     mReflectCam->setPosition(mCamera->getPosition());
 
-    // Rotate plane
-    //mPlaneNode->yaw(Degree(30 * evt.timeSinceLastFrame), Node::TS_PARENT);
+    // Update water height from keyboard input
+    mPlaneNode->resetToInitialState();
+	mPlaneNode->translate(1000.f, CGlobals::waterHeight, 1000.f);
 
     return true;
 }
@@ -35,13 +37,13 @@ CWater::CWater() :
 
 CWater::~CWater()
 {
+	Root::getSingleton().removeFrameListener(mFrameListener);
+
 	SAFE_DELETE( mPlane )
 	SAFE_DELETE( mPlaneEnt )
 	SAFE_DELETE( mPlaneNode )
 	SAFE_DELETE( mReflectCam )
 	SAFE_DELETE( mFrameListener )
-
-	Root::getSingleton().removeFrameListener(mFrameListener);
 }
 
 void CWater::init()
@@ -65,7 +67,7 @@ void CWater::init()
 	// Attach both the plane entity, and the plane definition
 	mPlaneNode->attachObject(mPlaneEnt);
 	mPlaneNode->attachObject(mPlane);
-	mPlaneNode->translate(1000, 6, 1000);
+	mPlaneNode->translate(1000, CGlobals::waterHeight, 1000);
 
 
 	// Create Render Texture to be associated with the reflected rendering

@@ -1,5 +1,6 @@
 #include "ExampleFrameListener.h"
 #include "HouseOfPhthah.h"
+#include "Globals.h"
 
 #include <Ogre.h>
 
@@ -227,6 +228,16 @@ bool ExampleFrameListener::processUnbufferedKeyInput(const FrameEvent& evt)
 		mTimeUntilNextToggle = 0.5;
 		if (!displayCameraDetails)
 			mDebugText = "";
+	}
+
+	// Control the hiehgt of the water:
+	if(mKeyboard->isKeyDown(OIS::KC_ADD) && mTimeUntilNextToggle <= 0)
+	{
+		CGlobals::waterHeight += 1.0f;
+	}
+	if(mKeyboard->isKeyDown(OIS::KC_MINUS) && mTimeUntilNextToggle <= 0)
+	{
+		CGlobals::waterHeight -= 1.0f;
 	}
 
 	// Print camera details

@@ -19,7 +19,8 @@ class RenderToTextureFrameListener : public FrameListener
 protected:
 	Camera* mCamera;
 	Camera* mReflectCam;
-    SceneNode* mPlaneNode;
+    SceneNode*	mPlaneNode;
+	
 public:
 	RenderToTextureFrameListener(Camera* maincam, Camera* reflectCam, SceneNode* planeSceneNode) :
         	mCamera(maincam), 
