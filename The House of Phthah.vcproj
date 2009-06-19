@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="9.00"
+	Version="9,00"
 	Name="The House of Phthah"
 	ProjectGUID="{8582B961-E282-4F38-8B09-0AC2CBF92715}"
 	RootNamespace="TheHouseofPhthah"
@@ -214,6 +214,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\InputManager.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\main.cpp"
 				>
 				<FileConfiguration
@@ -244,7 +248,11 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath=".\SkyDome.cpp"
+				RelativePath=".\src\sky\Sky.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\src\sky\SkyListener.cpp"
 				>
 			</File>
 			<File
@@ -274,11 +282,19 @@
 				>
 			</File>
 			<File
+				RelativePath=".\InputManager.h"
+				>
+			</File>
+			<File
 				RelativePath=".\Macros.h"
 				>
 			</File>
 			<File
-				RelativePath=".\SkyDome.h"
+				RelativePath=".\src\sky\Sky.h"
+				>
+			</File>
+			<File
+				RelativePath=".\src\sky\SkyListener.h"
 				>
 			</File>
 			<File

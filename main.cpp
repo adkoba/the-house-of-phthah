@@ -24,7 +24,7 @@ int main(int argc, char **argv)
 		{
 			CHouseOfPhthah::getSingleton().Run();
 		}
-		CHouseOfPhthah::getSingleton().Exit();
+		//CHouseOfPhthah::getSingleton().Exit();
 
 	} catch( Ogre::Exception &e ) { 
 #if OGRE_PLATFORM == OGRE_PLATFORM_WIN32 

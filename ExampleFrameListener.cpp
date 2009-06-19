@@ -230,7 +230,7 @@ bool ExampleFrameListener::processUnbufferedKeyInput(const FrameEvent& evt)
 			mDebugText = "";
 	}
 
-	// Control the hiehgt of the water:
+	// Control the height of the water:
 	if(mKeyboard->isKeyDown(OIS::KC_ADD) && mTimeUntilNextToggle <= 0)
 	{
 		CGlobals::waterHeight += 1.0f;
@@ -238,6 +238,11 @@ bool ExampleFrameListener::processUnbufferedKeyInput(const FrameEvent& evt)
 	if(mKeyboard->isKeyDown(OIS::KC_MINUS) && mTimeUntilNextToggle <= 0)
 	{
 		CGlobals::waterHeight -= 1.0f;
+	}
+	// Change the type of sky
+	if(mKeyboard->isKeyDown(OIS::KC_Z) && mTimeUntilNextToggle <= 0)
+	{
+		CHouseOfPhthah::getSingleton().getSky().switchSkyType();
 	}
 
 	// Print camera details
