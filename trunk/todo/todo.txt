@@ -1,0 +1,7 @@
+Todo:
+Benjamin: understand how input works and make consistent changes
+Benjamin: correct the bug of (either no sun no moon in caelum || no clouds in ogre skydome)
+
+Ideas:
+Game: creating two worlds, the world of the living and the world of the deads, and connect them with a morphing
+Game: Implement possibility to flatten the game as in crush to move on the paintings wall

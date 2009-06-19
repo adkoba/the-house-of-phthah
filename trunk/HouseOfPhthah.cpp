@@ -21,8 +21,8 @@ CHouseOfPhthah& CHouseOfPhthah::getSingleton(void)
 CHouseOfPhthah::CHouseOfPhthah() :
 	mRoot(NULL),
 	mSceneMgr(NULL),
-	mWindow(NULL),
 	mViewport(NULL),
+	mWindow(NULL),
 	mCamera(NULL),
 	mResourcePath(""),
 	mFrameListener(NULL)
@@ -150,7 +150,7 @@ void CHouseOfPhthah::createScene()
     mWindow->getViewport(0)->setBackgroundColour(fadeColour);*/
 	
 	// Create a skydome
-	mSkyDome.createSkyDome("PhthahSkyDome.mesh", "Examples/CloudySky", "PhthahSkyDome", "PhthahSkyDome");
+	mSkyDome.createSky(CSky::OGRE_SKY_PLANE);
 	
 	// Load terrain
     mTerrain.createTerrain("terrain.cfg");

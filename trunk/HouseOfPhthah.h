@@ -4,7 +4,7 @@
 #include <OgreSingleton.h>
 #include <OgreString.h>
 #include "Macros.h"
-#include "SkyDome.h"
+#include "src\sky\Sky.h"
 #include "Terrain.h"
 #include "Water.h"
 
@@ -20,6 +20,7 @@ class CHouseOfPhthah : public Ogre::Singleton< CHouseOfPhthah >
 public :
 	CHouseOfPhthah();
 	~CHouseOfPhthah();
+	CSky& getSky() { return mSkyDome; };
 
 	static CHouseOfPhthah& getSingleton(void);
     static CHouseOfPhthah* getSingletonPtr(void);
@@ -50,7 +51,7 @@ private:
 	void		createFrameListener();
 
 private:
-	CSkyDome	mSkyDome;
+	CSky		mSkyDome;
 	CTerrain	mTerrain;
 	CWater		mWater;
 };
