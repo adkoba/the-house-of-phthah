@@ -41,7 +41,7 @@ bool  CSkyListener::frameStarted(const Ogre::FrameEvent& evt)
 			assert(mCamera&&caelumSystem&&"Problem in CSkyListener::frameStarted()");
 			caelumSystem->notifyCameraChanged(mCamera);
 			// we make the sky evolve with time (if activated, problem with OGRE_SKY_DOME; if deactivated, no sun nor moon in OGRE_SKY_DOME)
-			//caelumSystem->updateSubcomponents(evt.timeSinceLastFrame);
+			caelumSystem->updateSubcomponents(evt.timeSinceLastFrame);
 		}
 	break;
 	default:

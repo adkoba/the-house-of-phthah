@@ -214,7 +214,7 @@ void CSky::createCaelumSkyDome()
 		}
 
 		// Set time acceleration.
-		//mCaelumSystem->getUniversalClock ()->setTimeScale (0);
+		mCaelumSystem->getUniversalClock ()->setTimeScale (1000);
 
 		// Sunrise with visible moon.
 		mCaelumSystem->getUniversalClock ()->setGregorianDateTime (2007, 4, 9, 9, 33, 0);
@@ -316,6 +316,7 @@ void CSky::deleteSky()
 void CSky::deleteCaelumSkyDome()
 {
     assert(mCaelumSystem&&"Problem in CSky::deleteCaelumSkyDome()");
+	mCaelumSystem->setManageSceneFog(false);
     //mCaelumSystem->shutdown(false);
 	SAFE_DELETE( mCaelumSystem )
 }
