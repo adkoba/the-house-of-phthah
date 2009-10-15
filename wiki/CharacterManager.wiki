@@ -1,0 +1,17 @@
+#summary One-sentence summary of this page.
+
+= Introduction =
+
+Bon alors après avoir était un élève studieux et avoir lu quasiment tous les tutos de Ogre, je me lance enfin sur le projet. Dans les tâches que je me suis assigné pour l’instant, il y a juste :
+
+* Établir un diagramme de classe du projet actuel.
+
+* Ajouter un gestionnaire de personnages.
+
+
+= Details =
+
+Add your content here.  Format your content with:
+  * Text in *bold* or _italic_
+  * Headings, paragraphs, and lists
+  * Automatic links to other wiki pages
