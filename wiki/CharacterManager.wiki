@@ -1,4 +1,6 @@
+#summary Perspective de développement du gestionnaire de personnages
 #labels Phase-Design,Phase-Implementation
+
 = Introduction =
 
 Bon alors après avoir été un élève studieux et avoir lu quasiment tous les tutoriaux de Ogre, je me lance enfin sur le projet. Dans les tâches que je me suis assigné pour l’instant, il y a juste : 
