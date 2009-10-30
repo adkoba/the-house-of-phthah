@@ -6,7 +6,8 @@
 #include <OgreMaterialManager.h> 
 #include <OgreRoot.h>
 
-#include "../../Macros.h"
+#include "Macros.h"
+#include "Globals.h"
 
 using namespace Caelum;
 
@@ -38,7 +39,7 @@ CSky::~CSky()
 //	mEntityId = EntityId;
 //
 //	Root* root = Root::getSingletonPtr();
-//	SceneManager* sceneMgr = root->getSceneManager("MainScene");
+//	SceneManager* sceneMgr = root->getSceneManager(CGlobals::MainSceneName);
 //
 //    // Destroy previous entity
 //	if (mSkyDomeEntity) sceneMgr->destroyEntity(mEntityId);
@@ -66,7 +67,7 @@ void CSky::createSky(const eSkyType& SkyType)
 	mSkyType = SkyType;
 	assert(!mListener&&"Problem in CSky::createSky(const eSkyType& SkyType)");
 	Root* root = Root::getSingletonPtr();
-    SceneManager* sceneMgr = root->getSceneManager("MainScene");
+    SceneManager* sceneMgr = root->getSceneManager(CGlobals::MainSceneName);
 	switch ( SkyType )
 	{
 	case OGRE_SKY_PLANE:
@@ -83,11 +84,11 @@ void CSky::createSky(const eSkyType& SkyType)
 	break;
 	case PHTHAH_SKY_DOME:
 		createPhthahSkyDome();
-		mListener = new CSkyListener( this, sceneMgr->getCamera("PlayerCam"), sceneMgr->getSceneNode(mNodeId) );
+		mListener = new CSkyListener( this, sceneMgr->getCamera(CGlobals::TerrainCameraName), sceneMgr->getSceneNode(mNodeId) );
 	break;
 	case CAELUM_SKY_DOME:
 		createCaelumSkyDome();
-		mListener = new CSkyListener( this, sceneMgr->getCamera("PlayerCam") );
+		mListener = new CSkyListener( this, sceneMgr->getCamera(CGlobals::TerrainCameraName) );
 	break;
 	default:
 		assert(false&&"Wrong SkyType in CSky::createSky(const eSkyType& SkyType)");
@@ -102,8 +103,8 @@ void CSky::createCaelumSkyDome()
 	if ( !mCaelumSystem )
 	{
 		Root* root = Root::getSingletonPtr();
-		SceneManager* sceneMgr = root->getSceneManager("MainScene");
-		Viewport* viewport = sceneMgr->getCamera("PlayerCam")->getViewport();
+		SceneManager* sceneMgr = root->getSceneManager(CGlobals::MainSceneName);
+		Viewport* viewport = sceneMgr->getCamera(CGlobals::TerrainCameraName)->getViewport();
 
 		//// Pick components to create in the demo.
 		//// You can comment any of those and it should still work
@@ -224,7 +225,7 @@ void CSky::createCaelumSkyDome()
 void CSky::createOgreSkyPlane()
 {
 	Root* root = Root::getSingletonPtr();
-    SceneManager* sceneMgr = root->getSceneManager("MainScene");
+    SceneManager* sceneMgr = root->getSceneManager(CGlobals::MainSceneName);
     // Define the required skyplane
     Plane plane;
     // 5000 world units from the camera
@@ -238,7 +239,7 @@ void CSky::createOgreSkyPlane()
 void CSky::createOgreSkyBox()
 {
 	Root* root = Root::getSingletonPtr();
-    SceneManager* sceneMgr = root->getSceneManager("MainScene");
+    SceneManager* sceneMgr = root->getSceneManager(CGlobals::MainSceneName);
     // Create a skybox
     sceneMgr->setSkyBox(true, "Examples/SpaceSkyBox", 50 );
 }
@@ -246,7 +247,7 @@ void CSky::createOgreSkyBox()
 void CSky::createOgreSkyDome()
 {
 	Root* root = Root::getSingletonPtr();
-    SceneManager* sceneMgr = root->getSceneManager("MainScene");
+    SceneManager* sceneMgr = root->getSceneManager(CGlobals::MainSceneName);
     // Create a skydome
 	sceneMgr->setSkyDome(true, "Examples/CloudySky", 5, 8);
 }
@@ -263,7 +264,7 @@ void CSky::createPhthahSkyDome()
 	mEntityId = mNodeId = "PhthahSkyDome";
 
 	Root* root = Root::getSingletonPtr();
-	SceneManager* sceneMgr = root->getSceneManager("MainScene");
+	SceneManager* sceneMgr = root->getSceneManager(CGlobals::MainSceneName);
 
 	// Create new sentity
 	mSkyDomeEntity = sceneMgr->createEntity(mEntityId, mMeshName);
@@ -324,7 +325,7 @@ void CSky::deleteCaelumSkyDome()
 void CSky::deleteOgreSkyPlane()
 {
 	Root* root = Root::getSingletonPtr();
-    SceneManager* sceneMgr = root->getSceneManager("MainScene");
+    SceneManager* sceneMgr = root->getSceneManager(CGlobals::MainSceneName);
 	// OgreSkyPlane enabled?
 	assert(sceneMgr->isSkyPlaneEnabled()&&"Problem in CSky::deleteOgreSkyPlane()");
     sceneMgr->setSkyPlane(false, Plane(), "");
@@ -333,7 +334,7 @@ void CSky::deleteOgreSkyPlane()
 void CSky::deleteOgreSkyBox()
 {
 	Root* root = Root::getSingletonPtr();
-    SceneManager* sceneMgr = root->getSceneManager("MainScene");
+    SceneManager* sceneMgr = root->getSceneManager(CGlobals::MainSceneName);
 	// OgreSkyBox enabled?
 	assert(sceneMgr->isSkyBoxEnabled()&&"Problem in CSky::deleteOgreSkyBox()");
     sceneMgr->setSkyBox(false, "");
@@ -342,7 +343,7 @@ void CSky::deleteOgreSkyBox()
 void CSky::deleteOgreSkyDome()
 {
 	Root* root = Root::getSingletonPtr();
-    SceneManager* sceneMgr = root->getSceneManager("MainScene");
+    SceneManager* sceneMgr = root->getSceneManager(CGlobals::MainSceneName);
 	// OgreSkyDome enabled?
 	assert(sceneMgr->isSkyDomeEnabled()&&"Problem in CSky::deleteOgreSkyDome()");
 	sceneMgr->setSkyDome(false, "Examples/CloudySky", 5, 8);
@@ -353,7 +354,7 @@ void CSky::deletePhthahSkyDome()
 	assert(mSkyDomeEntity&&"Problem in CSky::deletePhthahSkyDome()");
 	assert(mMeshName!=""&&mMaterialName!=""&&mEntityId!=""&&mNodeId!=""&&"Problem in CSky::deletePhthahSkyDome()");
 	Root* root = Root::getSingletonPtr();
-    SceneManager* sceneMgr = root->getSceneManager("MainScene");
+    SceneManager* sceneMgr = root->getSceneManager(CGlobals::MainSceneName);
 	sceneMgr->destroyEntity(mEntityId);
 	mSkyDomeEntity = NULL;
 	sceneMgr->destroySceneNode(mNodeId);
