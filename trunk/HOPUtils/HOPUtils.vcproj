@@ -123,6 +123,7 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				EnableIntrinsicFunctions="true"
+				AdditionalIncludeDirectories="$(OGRE_HOME)\include; ..\include"
 				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;HOPUTILS_EXPORTS"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="true"
