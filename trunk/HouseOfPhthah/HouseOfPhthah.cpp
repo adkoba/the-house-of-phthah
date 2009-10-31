@@ -49,7 +49,11 @@ bool CHouseOfPhthah::Start()
 	Ogre::String pluginsPath;
 	// only use plugins.cfg if not static
 #ifndef OGRE_STATIC_LIB
+#ifdef _DEBUG
+	pluginsPath = mResourcePath + "plugins_d.cfg";
+#else
 	pluginsPath = mResourcePath + "plugins.cfg";
+#endif
 #endif
 
 	mRoot = OGRE_NEW Ogre::Root(pluginsPath, 
@@ -163,12 +167,11 @@ void CHouseOfPhthah::createScene()
 	// Initialize water
 	mWater.init();
 	
-	Entity *ent;
-	ent = mSceneMgr->createEntity("head", "ogrehead.mesh");
-	// Attach to child of root node, better for culling (otherwise bounds are the combination of the 2)
-	mSceneMgr->getRootSceneNode()->createChildSceneNode()->attachObject(ent);
-
-	mEntityMgr->addEntity(Player,"robot.mesh",Ogre::Vector3(100.0,500.0,100.0));
+	mEntityMgr->addEntity(Player,"robot.mesh",Ogre::Vector3(100.0,1000.0,100.0));
+	mEntityMgr->addEntity(Ennemy,"robot.mesh",Ogre::Vector3(200.0,1000.0,200.0));
+	mEntityMgr->addEntity(Ennemy,"robot.mesh",Ogre::Vector3(300.0,1000.0,300.0));
+	mEntityMgr->addEntity(Ennemy,"robot.mesh",Ogre::Vector3(400.0,1000.0,400.0));
+	mEntityMgr->addEntity(Ennemy,"robot.mesh",Ogre::Vector3(500.0,1000.0,500.0));
 }
 
 void CHouseOfPhthah::destroyScene(){}
