@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="9.00"
+	Version="9,00"
 	Name="Plugin_OctreeZone"
 	ProjectGUID="{1A466963-7683-46AD-A927-785917C6CEEE}"
 	TargetFrameworkVersion="131072"
@@ -16,7 +16,7 @@
 	<Configurations>
 		<Configuration
 			Name="Debug|Win32"
-			OutputDirectory="..\..\..\lib"
+			OutputDirectory="$(SolutionDir)\bin\$(ConfigurationName)"
 			IntermediateDirectory="..\obj\$(ConfigurationName)"
 			ConfigurationType="2"
 			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops"
@@ -63,16 +63,16 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="OgreMain_d.lib Plugin_PCZSceneManager_d.lib"
 				OutputFile="$(OutDir)/$(ProjectName)_d.dll"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="..\..\..\lib"
+				AdditionalLibraryDirectories=""
 				GenerateDebugInformation="true"
 				ProgramDatabaseFile="$(OutDir)/Plugin_OctreeZone_d.pdb"
 				SubSystem="2"
 				OptimizeForWindows98="1"
 				RandomizedBaseAddress="1"
 				DataExecutionPrevention="0"
+				ImportLibrary="$(SolutionDir)\lib\$(ConfigurationName)\$(TargetName).lib"
 				TargetMachine="1"
 			/>
 			<Tool
@@ -96,12 +96,12 @@
 			<Tool
 				Name="VCPostBuildEventTool"
 				Description="Copying exe to samples bin directory ..."
-				CommandLine="copy $(OutDir)\$(TargetFileName) ..\..\..\Samples\Common\bin\$(ConfigurationName)"
+				CommandLine=""
 			/>
 		</Configuration>
 		<Configuration
 			Name="Release|Win32"
-			OutputDirectory="..\..\..\lib"
+			OutputDirectory="$(SolutionDir)\bin\$(ConfigurationName)"
 			IntermediateDirectory="..\obj\$(ConfigurationName)"
 			ConfigurationType="2"
 			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops"
@@ -151,15 +151,15 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="OgreMain.lib Plugin_PCZSceneManager.lib"
 				LinkIncremental="1"
-				AdditionalLibraryDirectories="..\..\..\lib"
+				AdditionalLibraryDirectories=""
 				SubSystem="2"
 				OptimizeReferences="2"
 				EnableCOMDATFolding="2"
 				OptimizeForWindows98="1"
 				RandomizedBaseAddress="1"
 				DataExecutionPrevention="0"
+				ImportLibrary="$(SolutionDir)\lib\$(ConfigurationName)\$(TargetName).lib"
 				TargetMachine="1"
 			/>
 			<Tool
@@ -182,8 +182,7 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				Description="Copying exe to samples bin directory ..."
-				CommandLine="copy $(OutDir)\$(TargetFileName) ..\..\..\Samples\Common\bin\$(ConfigurationName)"
+				CommandLine=""
 			/>
 		</Configuration>
 		<Configuration
@@ -342,15 +341,15 @@
 				>
 			</File>
 			<File
-				RelativePath="..\src\OgreOctreeZoneOctree.cpp"
-				>
-			</File>
-			<File
 				RelativePath="..\src\OgreOctreeZone.cpp"
 				>
 			</File>
 			<File
 				RelativePath="..\src\OgreOctreeZoneDll.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\src\OgreOctreeZoneOctree.cpp"
 				>
 			</File>
 			<File
@@ -387,11 +386,11 @@
 				>
 			</File>
 			<File
-				RelativePath="..\include\OgreOctreeZoneOctree.h"
+				RelativePath="..\include\OgreOctreeZone.h"
 				>
 			</File>
 			<File
-				RelativePath="..\include\OgreOctreeZone.h"
+				RelativePath="..\include\OgreOctreeZoneOctree.h"
 				>
 			</File>
 			<File
