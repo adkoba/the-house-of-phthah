@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="9.00"
+	Version="9,00"
 	Name="ReferenceAppLayer"
 	ProjectGUID="{6FDA6A78-A473-4FEB-86A5-96D1CC65D5B9}"
 	Keyword="Win32Proj"
@@ -17,7 +17,7 @@
 	<Configurations>
 		<Configuration
 			Name="Debug|Win32"
-			OutputDirectory="..\..\..\lib"
+			OutputDirectory="$(SolutionDir)\bin\$(ConfigurationName)"
 			IntermediateDirectory="..\obj\$(ConfigurationName)"
 			ConfigurationType="2"
 			InheritedPropertySheets="$(VCInstallDir)\VCProjectDefaults\UpgradeFromVC70.vsprops"
@@ -65,19 +65,19 @@
 			<Tool
 				Name="VCLinkerTool"
 				IgnoreImportLibrary="true"
-				AdditionalDependencies="OgreMain_d.lib ode.lib"
+				AdditionalDependencies="ode.lib"
 				OutputFile="$(OutDir)/ReferenceAppLayer_d.dll"
 				Version=""
 				LinkIncremental="2"
 				SuppressStartupBanner="true"
-				AdditionalLibraryDirectories="&quot;..\..\..\lib&quot;;&quot;..\..\..\Dependencies\lib\$(ConfigurationName)&quot;"
+				AdditionalLibraryDirectories="&quot;..\..\..\Dependencies\lib\$(ConfigurationName)&quot;"
 				ModuleDefinitionFile=""
 				GenerateDebugInformation="true"
 				ProgramDatabaseFile="$(OutDir)/$(ProjectName)_d.pdb"
 				SubSystem="2"
 				RandomizedBaseAddress="1"
 				DataExecutionPrevention="0"
-				ImportLibrary="$(OutDir)/ReferenceAppLayer_d.lib"
+				ImportLibrary="$(SolutionDir)\lib\$(ConfigurationName)\$(TargetName).lib"
 				TargetMachine="1"
 			/>
 			<Tool
@@ -101,12 +101,12 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				CommandLine="copy $(OutDir)\$(TargetFileName) ..\..\..\Samples\Common\bin\$(ConfigurationName)"
+				CommandLine=""
 			/>
 		</Configuration>
 		<Configuration
 			Name="Release|Win32"
-			OutputDirectory="..\..\..\lib"
+			OutputDirectory="$(SolutionDir)\bin\$(ConfigurationName)"
 			IntermediateDirectory="..\obj\$(ConfigurationName)"
 			ConfigurationType="2"
 			InheritedPropertySheets="$(VCInstallDir)\VCProjectDefaults\UpgradeFromVC70.vsprops"
@@ -160,20 +160,20 @@
 			<Tool
 				Name="VCLinkerTool"
 				IgnoreImportLibrary="true"
-				AdditionalDependencies="OgreMain.lib ode.lib"
+				AdditionalDependencies="ode.lib"
 				OutputFile="$(OutDir)/ReferenceAppLayer.dll"
 				Version="0.99"
 				LinkIncremental="1"
 				SuppressStartupBanner="true"
-				AdditionalLibraryDirectories="&quot;..\..\..\lib&quot;;&quot;..\..\..\Dependencies\lib\$(ConfigurationName)&quot;"
+				AdditionalLibraryDirectories="&quot;..\..\..\Dependencies\lib\$(ConfigurationName)&quot;"
 				ModuleDefinitionFile=""
-				GenerateDebugInformation="true"
+				GenerateDebugInformation="false"
 				SubSystem="2"
 				OptimizeReferences="2"
 				EnableCOMDATFolding="2"
 				RandomizedBaseAddress="1"
 				DataExecutionPrevention="0"
-				ImportLibrary="$(OutDir)/ReferenceAppLayer.lib"
+				ImportLibrary="$(SolutionDir)\lib\$(ConfigurationName)\$(TargetName).lib"
 				TargetMachine="1"
 			/>
 			<Tool
@@ -197,7 +197,7 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				CommandLine="copy $(OutDir)\$(TargetFileName) ..\..\..\Samples\Common\bin\$(ConfigurationName)"
+				CommandLine=""
 			/>
 		</Configuration>
 	</Configurations>

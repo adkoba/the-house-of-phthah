@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="9.00"
+	Version="9,00"
 	Name="Plugin_OctreeSceneManager"
 	ProjectGUID="{A6830BB5-9993-4F6D-8D4E-930F36A1B88F}"
 	Keyword="Win32Proj"
@@ -17,7 +17,7 @@
 	<Configurations>
 		<Configuration
 			Name="Debug|Win32"
-			OutputDirectory="..\..\..\lib"
+			OutputDirectory="$(SolutionDir)\bin\$(ConfigurationName)"
 			IntermediateDirectory="..\obj\$(ConfigurationName)"
 			ConfigurationType="2"
 			InheritedPropertySheets="$(VCInstallDir)\VCProjectDefaults\UpgradeFromVC70.vsprops"
@@ -65,19 +65,18 @@
 			<Tool
 				Name="VCLinkerTool"
 				IgnoreImportLibrary="true"
-				AdditionalDependencies="OgreMain_d.lib"
 				OutputFile="$(OutDir)/Plugin_OctreeSceneManager_d.dll"
 				Version=""
 				LinkIncremental="2"
 				SuppressStartupBanner="true"
-				AdditionalLibraryDirectories="&quot;..\..\..\lib&quot;;&quot;..\..\..\Dependencies\lib\$(ConfigurationName)&quot;"
+				AdditionalLibraryDirectories=""
 				ModuleDefinitionFile=""
 				GenerateDebugInformation="true"
 				ProgramDatabaseFile="$(OutDir)/$(ProjectName)_d.pdb"
 				SubSystem="2"
 				RandomizedBaseAddress="1"
 				DataExecutionPrevention="0"
-				ImportLibrary="$(OutDir)/Plugin_OctreeSceneManager_d.lib"
+				ImportLibrary="$(SolutionDir)\lib\$(ConfigurationName)\$(TargetName).lib"
 				TargetMachine="1"
 			/>
 			<Tool
@@ -101,12 +100,12 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				CommandLine="copy $(OutDir)\$(TargetFileName) ..\..\..\Samples\Common\bin\$(ConfigurationName)"
+				CommandLine=""
 			/>
 		</Configuration>
 		<Configuration
 			Name="Release|Win32"
-			OutputDirectory="..\..\..\lib"
+			OutputDirectory="$(SolutionDir)\bin\$(ConfigurationName)"
 			IntermediateDirectory="..\obj\$(ConfigurationName)"
 			ConfigurationType="2"
 			InheritedPropertySheets="$(VCInstallDir)\VCProjectDefaults\UpgradeFromVC70.vsprops"
@@ -160,20 +159,19 @@
 			<Tool
 				Name="VCLinkerTool"
 				IgnoreImportLibrary="true"
-				AdditionalDependencies="OgreMain.lib"
 				OutputFile="$(OutDir)/Plugin_OctreeSceneManager.dll"
 				Version="0.99"
 				LinkIncremental="1"
 				SuppressStartupBanner="true"
-				AdditionalLibraryDirectories="&quot;..\..\..\lib&quot;;&quot;..\..\..\Dependencies\lib\$(ConfigurationName)&quot;"
+				AdditionalLibraryDirectories=""
 				ModuleDefinitionFile=""
-				GenerateDebugInformation="true"
+				GenerateDebugInformation="false"
 				SubSystem="2"
 				OptimizeReferences="2"
 				EnableCOMDATFolding="2"
 				RandomizedBaseAddress="1"
 				DataExecutionPrevention="0"
-				ImportLibrary="$(OutDir)/Plugin_OctreeSceneManager.lib"
+				ImportLibrary="$(SolutionDir)\lib\$(ConfigurationName)\$(TargetName).lib"
 				TargetMachine="1"
 			/>
 			<Tool
@@ -197,7 +195,7 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				CommandLine="copy $(OutDir)\$(TargetFileName) ..\..\..\Samples\Common\bin\$(ConfigurationName)"
+				CommandLine=""
 			/>
 		</Configuration>
 		<Configuration

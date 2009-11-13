@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="9.00"
+	Version="9,00"
 	Name="HouseOfPhthah"
 	ProjectGUID="{02DBBFA5-0D0F-46E7-B450-C8C81FCEF2B3}"
 	RootNamespace="HouseOfPhthah"
@@ -18,7 +18,7 @@
 	<Configurations>
 		<Configuration
 			Name="Debug|Win32"
-			OutputDirectory="$(SolutionDir)$(ConfigurationName)"
+			OutputDirectory="$(SolutionDir)\bin\$(ConfigurationName)"
 			IntermediateDirectory="$(ConfigurationName)"
 			ConfigurationType="1"
 			CharacterSet="1"
@@ -62,9 +62,10 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="caelum_d.lib OgreMain_d.lib OIS_d.lib HOPUtils.lib"
+				AdditionalDependencies="caelum_d.lib OIS_d.lib HOPUtils_d.lib"
+				OutputFile="$(OutDir)\$(ProjectName)_d.exe"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="&quot;..\Ogre\lib&quot;; &quot;..\Ogre\Dependencies\lib\Debug&quot;; ..\Debug; ..\plugin\Caelum\debug;"
+				AdditionalLibraryDirectories="..\Ogre\Dependencies\lib\Debug;..\plugin\Caelum\debug;..\lib\Debug"
 				GenerateDebugInformation="true"
 				SubSystem="2"
 				TargetMachine="1"
@@ -93,7 +94,7 @@
 		</Configuration>
 		<Configuration
 			Name="Release|Win32"
-			OutputDirectory="$(SolutionDir)$(ConfigurationName)"
+			OutputDirectory="$(SolutionDir)\bin\$(ConfigurationName)"
 			IntermediateDirectory="$(ConfigurationName)"
 			ConfigurationType="1"
 			CharacterSet="1"
@@ -137,10 +138,10 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="caelum.lib OgreMain.lib OIS.lib HOPUtils.lib"
+				AdditionalDependencies="caelum.lib OIS.lib"
 				LinkIncremental="1"
-				AdditionalLibraryDirectories="&quot;..\Ogre\lib&quot;; &quot;..\Ogre\Dependencies\lib\Release&quot; ..\plugin\Caelum\release; ..\Release"
-				GenerateDebugInformation="true"
+				AdditionalLibraryDirectories="..\plugin\Caelum\release;..\Ogre\Dependencies\lib\Release"
+				GenerateDebugInformation="false"
 				SubSystem="2"
 				OptimizeReferences="2"
 				EnableCOMDATFolding="2"
@@ -245,6 +246,22 @@
 			Filter="rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav"
 			UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}"
 			>
+			<File
+				RelativePath=".\media.cfg"
+				>
+			</File>
+			<File
+				RelativePath=".\Plugins.cfg"
+				>
+			</File>
+			<File
+				RelativePath=".\Plugins_d.cfg"
+				>
+			</File>
+			<File
+				RelativePath=".\resources.cfg"
+				>
+			</File>
 		</Filter>
 		<File
 			RelativePath=".\ReadMe.txt"
