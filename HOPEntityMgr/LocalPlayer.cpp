@@ -19,17 +19,10 @@ CLocalPlayer::CLocalPlayer( Ogre::SceneNode* pHisNode, Ogre::Entity* pHisEntity,
 	mAnimationState->setLoop(true);
     mAnimationState->setEnabled(true);
 
-	//// Get camera to thrid person view
-	//// create the camera
-	//Ogre::Root* root = Ogre::Root::getSingletonPtr();
-	//Ogre::SceneManager* sceneMgr = root->getSceneManager(CGlobals::MainSceneName);
- //   mCamera = mSceneMgr->createCamera(CGlobals::PlayerCameraName);
-
-	//Ogre::Root* root = Ogre::Root::getSingletonPtr();
-	//Ogre::SceneManager* sceneMgr = root->getSceneManager(CGlobals::MainSceneName);
-	//Ogre::Camera* camera = sceneMgr->getCamera(CGlobals::PlayerCamera);
+	// Create camera node
+	mCameraNode = mNode->createChildSceneNode( CGlobals::PlayerCameraName);
 }
-	
+
 CLocalPlayer::~CLocalPlayer() {}
 
 bool CLocalPlayer::mouseMoved(const OIS::MouseEvent &arg) 
