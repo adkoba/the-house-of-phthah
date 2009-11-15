@@ -27,17 +27,21 @@ bool CTerrainListener::frameRenderingQueued(const FrameEvent& evt)
 
 	assert(mCamera&&mRaySceneQuery&&"Problem in CTerrainListener::frameRenderingQueued()");
 
-    // clamp to terrain
-    mUpdateRay.setOrigin(mCamera->getPosition());
+    // clamp to terrain - Translation of camera on Y added to prevent computation error
+    mUpdateRay.setOrigin(mCamera->getPosition()+Vector3(0.0,100.0,0.0));
     mUpdateRay.setDirection(Vector3::NEGATIVE_UNIT_Y);
     mRaySceneQuery->setRay(mUpdateRay);
     RaySceneQueryResult& qryResult = mRaySceneQuery->execute();
     RaySceneQueryResult::iterator i = qryResult.begin();
     if (i != qryResult.end() && i->worldFragment)
     {
-        mCamera->setPosition(mCamera->getPosition().x, 
-							i->worldFragment->singleIntersection.y + 10, 
+
+		if( mCamera->getPosition().y < i->worldFragment->singleIntersection.y + 10.0 )
+		{
+			mCamera->setPosition(mCamera->getPosition().x, 
+							i->worldFragment->singleIntersection.y + 10.0, 
 							mCamera->getPosition().z);
+		}
     }
 
     return true;

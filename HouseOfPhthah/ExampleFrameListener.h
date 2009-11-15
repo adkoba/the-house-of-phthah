@@ -48,6 +48,12 @@ using namespace Ogre;
 
 class ExampleFrameListener: public FrameListener, public WindowEventListener
 {
+	enum CameraMode
+	{
+		FlyingCamera, 
+		PlayerCamera
+	};
+
 public:
 	// Constructor takes a RenderWindow because it uses that to determine input context
 	ExampleFrameListener(	RenderWindow* win,
@@ -70,7 +76,11 @@ public:
 			mTranslateVector.x += ms.X.rel * 0.13;
 			mTranslateVector.y -= ms.Y.rel * 0.13;
 		}
-		else
+		else if( ms.buttonDown( OIS::MB_Left ) ) /* PAN */
+		{
+
+		}
+		else /* Rotation */
 		{
 			mRotX = Degree(-ms.X.rel * 0.13);
 			mRotY = Degree(-ms.Y.rel * 0.13);
@@ -84,9 +94,12 @@ public:
 		// Make all the changes to the camera
 		// Note that YAW direction is around a fixed axis (freelook style) rather than a natural YAW
 		//(e.g. airplane)
-		mCamera->yaw(mRotX);
-		mCamera->pitch(mRotY);
-		mCamera->moveRelative(mTranslateVector);
+		if( mCameraMode == FlyingCamera )
+		{
+			mCamera->yaw(mRotX);
+			mCamera->pitch(mRotY);
+			mCamera->moveRelative(mTranslateVector);
+		}
 	}
 
 	virtual void showDebugOverlay(bool show)
@@ -113,7 +126,7 @@ protected:
 
 protected:
 	Camera*			mCamera;
-
+	CameraMode		mCameraMode;
 	Vector3			mTranslateVector;
 	Real			mCurrentSpeed;
 	RenderWindow*	mWindow;

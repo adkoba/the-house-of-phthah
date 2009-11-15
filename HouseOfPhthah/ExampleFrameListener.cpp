@@ -24,7 +24,8 @@ ExampleFrameListener::ExampleFrameListener(RenderWindow* win, Camera* cam, bool 
 	mInputManager(0),
 	mMouse(0),
 	mKeyboard(0),
-	mJoy(0)
+	mJoy(0),
+	mCameraMode(FlyingCamera)
 {
 
 	mDebugOverlay = OverlayManager::getSingleton().getByName("Core/DebugOverlay");
@@ -141,20 +142,43 @@ bool ExampleFrameListener::frameRenderingQueued(const FrameEvent& evt)
 
 bool ExampleFrameListener::processUnbufferedKeyInput(const FrameEvent& evt)
 {
-
-	if(mKeyboard->isKeyDown(OIS::KC_A))
+	if(mKeyboard->isKeyDown(OIS::KC_LEFT) && mCameraMode == FlyingCamera)
 		mTranslateVector.x = -mMoveScale;	// Move camera left
 
-	if(mKeyboard->isKeyDown(OIS::KC_D))
+	if(mKeyboard->isKeyDown(OIS::KC_RIGHT) && mCameraMode == FlyingCamera)
 		mTranslateVector.x = mMoveScale;	// Move camera RIGHT
 
-	if(mKeyboard->isKeyDown(OIS::KC_UP) || mKeyboard->isKeyDown(OIS::KC_W) )
+	if(mKeyboard->isKeyDown(OIS::KC_UP) && mCameraMode == FlyingCamera )
 		mTranslateVector.z = -mMoveScale;	// Move camera forward
 
-	if(mKeyboard->isKeyDown(OIS::KC_DOWN) || mKeyboard->isKeyDown(OIS::KC_S) )
+	if(mKeyboard->isKeyDown(OIS::KC_DOWN) && mCameraMode == FlyingCamera )
 		mTranslateVector.z = mMoveScale;	// Move camera backward
 
-	if(mKeyboard->isKeyDown(OIS::KC_PGUP))
+	if(mKeyboard->isKeyDown(OIS::KC_C) && mCameraMode == FlyingCamera && mTimeUntilNextToggle <= 0)
+	{
+		// First detach camera
+		mCamera->getParentSceneNode()->detachObject(mCamera);
+		// Next attach camera to player
+		SceneNode* lCamSceneNode = CHouseOfPhthah::getSingletonPtr()->getSceneMgr()->getSceneNode(CGlobals::PlayerCameraName);
+		lCamSceneNode->attachObject(mCamera);
+		mCamera->setPosition(lCamSceneNode->getPosition());
+
+		mCameraMode = PlayerCamera;
+		mTimeUntilNextToggle = 1;
+	}
+	else if(mKeyboard->isKeyDown(OIS::KC_C) && mCameraMode == PlayerCamera && mTimeUntilNextToggle <= 0)
+	{
+		mCamera->getParentSceneNode()->detachObject(mCamera);
+		SceneNode* lCamSceneNode = CHouseOfPhthah::getSingletonPtr()->getSceneMgr()->getSceneNode(CGlobals::TerrainCameraName);
+		lCamSceneNode->attachObject(mCamera);
+		mCamera->setPosition(lCamSceneNode->getPosition());
+
+		mCameraMode = FlyingCamera;
+		mTimeUntilNextToggle = 1;
+	}
+	
+
+/*	if(mKeyboard->isKeyDown(OIS::KC_PGUP))
 		mTranslateVector.y = mMoveScale;	// Move camera up
 
 	if(mKeyboard->isKeyDown(OIS::KC_PGDOWN))
@@ -165,7 +189,7 @@ bool ExampleFrameListener::processUnbufferedKeyInput(const FrameEvent& evt)
 
 	if(mKeyboard->isKeyDown(OIS::KC_LEFT))
 		mCamera->yaw(mRotScale);
-
+*/
 	if( mKeyboard->isKeyDown(OIS::KC_ESCAPE) || mKeyboard->isKeyDown(OIS::KC_Q) )
 		return false;
 
