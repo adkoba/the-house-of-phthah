@@ -8,7 +8,7 @@ class CLocalPlayer : public CCharacter
 				   , public OIS::MouseListener
 {
 private:
-	
+	Ogre::SceneNode*		mCameraNode;
 
 public:
 	CLocalPlayer( Ogre::SceneNode* pHisNode, Ogre::Entity* pHisEntity, const std::string& pHisName );
