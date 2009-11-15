@@ -134,6 +134,9 @@ void CHouseOfPhthah::createCamera()
 	mCamera->setNearClipDistance(1);
 	// we should erase this line since I don't see any difference when commented, and I dunno what it's doing
     mCamera->setOrientation(Quaternion(-0.3486, 0.0122, 0.9365, 0.0329));
+
+	Ogre::SceneNode* lNode = mSceneMgr->getRootSceneNode()->createChildSceneNode(CGlobals::TerrainCameraName,mCamera->getPosition());
+	lNode->attachObject(mCamera);
 }
 
 void CHouseOfPhthah::createFrameListener()
@@ -167,7 +170,7 @@ void CHouseOfPhthah::createScene()
 	// Initialize water
 	mWater.init();
 	
-	mEntityMgr->addEntity(Player,"robot.mesh",Ogre::Vector3(100.0,1000.0,100.0));
+	mEntityMgr->addEntity(Player,"robot.mesh",Ogre::Vector3(900.0,1000.0,900.0));
 	mEntityMgr->addEntity(Ennemy,"robot.mesh",Ogre::Vector3(200.0,1000.0,200.0));
 	mEntityMgr->addEntity(Ennemy,"robot.mesh",Ogre::Vector3(300.0,1000.0,300.0));
 	mEntityMgr->addEntity(Ennemy,"robot.mesh",Ogre::Vector3(400.0,1000.0,400.0));
