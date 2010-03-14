@@ -51,7 +51,7 @@ void CEntityMgr::addEntity( HOPEntityType pEntityType, const std::string& pEntit
 
 	Ogre::SceneNode *lNode = lSceneMgr->getRootSceneNode()->createChildSceneNode(lOss.str(),pPosition);
 	lNode->attachObject(ent);
-	lNode->setScale(0.1f, 0.1f, 0.1f);
+	//lNode->setScale(0.1f, 0.1f, 0.1f);
 
 	// Add this instance in the SceneMgr
 	CCharacter* lNewCharacter;
