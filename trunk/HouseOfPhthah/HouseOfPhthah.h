@@ -8,6 +8,7 @@
 #include "Sky.h"
 #include "Terrain.h"
 #include "Water.h"
+#include "DefaultMeshes.h"
 
 class Ogre::Root;
 class Ogre::SceneManager;
@@ -59,9 +60,10 @@ private:
 	void		createFrameListener();
 
 private:
-	CSky		mSkyDome;
-	CTerrain	mTerrain;
-	CWater		mWater;
+	CSky			mSkyDome;
+	CTerrain		mTerrain;
+	CWater			mWater;
+	CDefaultMeshes	mWorldMeshes;
 };
 
 #endif //_HouseOfPhthah_

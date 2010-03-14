@@ -127,9 +127,9 @@ void CHouseOfPhthah::createCamera()
 	mCamera = mSceneMgr->createCamera(CGlobals::TerrainCameraName);
 
 	// Position it at 500 in Z direction
-	mCamera->setPosition(Ogre::Vector3(128,25,128));
+	mCamera->setPosition(Ogre::Vector3(2500,75,2500));
 	// Look back along -Z
-	mCamera->lookAt(Ogre::Vector3(0,0,-300));
+	mCamera->lookAt(Ogre::Vector3(0,0,-1));
 	// what is that for?
 	mCamera->setNearClipDistance(1);
 	// we should erase this line since I don't see any difference when commented, and I dunno what it's doing
@@ -162,15 +162,18 @@ void CHouseOfPhthah::createScene()
     mWindow->getViewport(0)->setBackgroundColour(fadeColour);*/
 	
 	// Create a skydome
-	mSkyDome.createSky(CSky::OGRE_SKY_PLANE);
+	//mSkyDome.createSky(CSky::OGRE_SKY_PLANE);
 	
 	// Load terrain
     mTerrain.createTerrain("terrain.cfg");
 
 	// Initialize water
-	mWater.init();
+	//mWater.init();
+
+	mWorldMeshes.createDefaultMeshes();
+
 	
-	mEntityMgr->addEntity(Player,"robot.mesh",Ogre::Vector3(900.0,1000.0,900.0));
+	mEntityMgr->addEntity(Player,"robot.mesh",Ogre::Vector3(5100.0,1000.0,5100.0));
 	mEntityMgr->addEntity(Ennemy,"robot.mesh",Ogre::Vector3(200.0,1000.0,200.0));
 	mEntityMgr->addEntity(Ennemy,"robot.mesh",Ogre::Vector3(300.0,1000.0,300.0));
 	mEntityMgr->addEntity(Ennemy,"robot.mesh",Ogre::Vector3(400.0,1000.0,400.0));

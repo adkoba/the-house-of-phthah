@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="9,00"
+	Version="9.00"
 	Name="RenderSystem_Direct3D9"
 	ProjectGUID="{0F172B9C-E5D5-4EB1-BFDB-93D787A37461}"
 	Keyword="Win32Proj"
