@@ -10,13 +10,21 @@
 #include "Water.h"
 #include "DefaultMeshes.h"
 
-class Ogre::Root;
-class Ogre::SceneManager;
-class Ogre::Viewport;
-class Ogre::Camera;
-class Ogre::RenderWindow;
-class ExampleFrameListener;
-class IEntityMgr;
+namespace Ogre
+{
+	class Ogre::Root;
+	class Ogre::SceneManager;
+	class Ogre::Viewport;
+	class Ogre::Camera;
+	class Ogre::RenderWindow;
+}
+
+namespace HOP
+{
+	class CHOPFrameListener;
+	class CCamera;
+}
+	class IEntityMgr;
 
 class CHouseOfPhthah : public Ogre::Singleton< CHouseOfPhthah >
 					 , public IHouseOfPhthah
@@ -29,7 +37,7 @@ public :
 	static CHouseOfPhthah& getSingleton(void);
     static CHouseOfPhthah* getSingletonPtr(void);
 
-	Ogre::Camera*		getCamera() { return mCamera; }
+	HOP::CCamera*		getCamera() { return mCamera; }
 	Ogre::SceneManager*	getSceneMgr() { return mSceneMgr; }
 	Ogre::Root*			getRoot() { return mRoot; }
 
@@ -41,10 +49,9 @@ public:
 	Ogre::Root*				mRoot;
 	Ogre::SceneManager*		mSceneMgr;
 	Ogre::Viewport*			mViewport;
-	Ogre::Camera*			mCamera;
     Ogre::RenderWindow*		mWindow;
 	Ogre::String			mResourcePath;
-	ExampleFrameListener*	mFrameListener;
+	HOP::CHOPFrameListener*	mFrameListener;
 	IEntityMgr*				mEntityMgr;
 
 private:
@@ -60,6 +67,7 @@ private:
 	void		createFrameListener();
 
 private:
+	HOP::CCamera*	mCamera;
 	CSky			mSkyDome;
 	CTerrain		mTerrain;
 	CWater			mWater;

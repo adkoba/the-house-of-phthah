@@ -5,7 +5,9 @@
 
 #include <OgreRoot.h>
 
-#include "ExampleFrameListener.h"
+#include "HOPEventDispatcher.h"
+#include "HOPFrameListener.h"
+#include "HOPCamera.h"
 #include "Macros.h"
 
 // Init Singleton:
@@ -121,27 +123,19 @@ void CHouseOfPhthah::chooseSceneManager()
 	// and we give it an instance name "main scene"
 	mSceneMgr = mRoot->createSceneManager("TerrainSceneManager",CGlobals::MainSceneName);
 }
+
 void CHouseOfPhthah::createCamera()
 {
-	// Create the camera
-	mCamera = mSceneMgr->createCamera(CGlobals::TerrainCameraName);
-
-	// Position it at 500 in Z direction
-	mCamera->setPosition(Ogre::Vector3(2500,75,2500));
-	// Look back along -Z
-	mCamera->lookAt(Ogre::Vector3(0,0,-1));
-	// what is that for?
-	mCamera->setNearClipDistance(1);
-	// we should erase this line since I don't see any difference when commented, and I dunno what it's doing
-    mCamera->setOrientation(Quaternion(-0.3486, 0.0122, 0.9365, 0.0329));
-
-	Ogre::SceneNode* lNode = mSceneMgr->getRootSceneNode()->createChildSceneNode(CGlobals::TerrainCameraName,mCamera->getPosition());
-	lNode->attachObject(mCamera);
+	mCamera = new HOP::CCamera(mSceneMgr);
+	mRoot->addFrameListener(mCamera);
 }
 
 void CHouseOfPhthah::createFrameListener()
 {
-	mFrameListener = new ExampleFrameListener(mWindow, mCamera);
+	HOP::CHOPEventDispatcher::getEventDispatcher()->initialize(mWindow);
+	mRoot->addFrameListener(HOP::CHOPEventDispatcher::getEventDispatcher()->getFrameListener());
+
+	mFrameListener = new HOP::CHOPFrameListener(mWindow);
 	mFrameListener->showDebugOverlay(true);
 	mRoot->addFrameListener(mFrameListener);
 }
@@ -185,11 +179,11 @@ void CHouseOfPhthah::destroyScene(){}
 void CHouseOfPhthah::createViewports()
 {
 	// Create one viewport, entire window
-	mViewport = mWindow->addViewport(mCamera);
+	mViewport = mWindow->addViewport(mCamera->getOgreCamera());
 	mViewport->setBackgroundColour(Ogre::ColourValue(0,0,0));
 
 	// Alter the camera aspect ratio to match the viewport
-	mCamera->setAspectRatio(
+	mCamera->getOgreCamera()->setAspectRatio(
 		Ogre::Real(mViewport->getActualWidth()) / Ogre::Real(mViewport->getActualHeight()));
 }
 

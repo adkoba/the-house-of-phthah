@@ -1,11 +1,15 @@
 #ifndef __I_HOUSE_OF_PHTHAH_H__
 #define __I_HOUSE_OF_PHTHAH_H__
 
+namespace HOP
+{
+	class CCamera;
+}
 
 class IHouseOfPhthah
 {
 public:
-	virtual Ogre::Camera*		getCamera()		= 0;
+	virtual HOP::CCamera*		getCamera()		= 0;
 	virtual Ogre::SceneManager*	getSceneMgr()	= 0;
 	virtual Ogre::Root*			getRoot()		= 0;
 };

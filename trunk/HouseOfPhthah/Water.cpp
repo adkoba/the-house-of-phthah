@@ -2,6 +2,7 @@
 #include "Macros.h"
 #include "Globals.h"
 #include "HouseOfPhthah.h"
+#include "HOPCamera.h"
 
 //#include <OgreEntity.h>
 //#include <OgreMeshManager.h>
@@ -77,7 +78,7 @@ void CWater::init()
 
 	// Create a Camera for the reflection computation	
 	RenderWindow* window = CHouseOfPhthah::getSingleton().mWindow;
-	Camera* camera = CHouseOfPhthah::getSingleton().mCamera;
+	Camera* camera = CHouseOfPhthah::getSingleton().getCamera()->getOgreCamera();
 
 	RenderTarget *rttTex = mReflectionTex->getBuffer()->getRenderTarget();
 	{
@@ -120,7 +121,7 @@ void CWater::init()
 void CWater::createFrameListener()
 {
 	mFrameListener= new RenderToTextureFrameListener(
-			CHouseOfPhthah::getSingleton().mCamera, 
+			CHouseOfPhthah::getSingleton().getCamera()->getOgreCamera(), 
 			mReflectCam, 
 			mPlaneNode);
 	Root::getSingleton().addFrameListener(mFrameListener);

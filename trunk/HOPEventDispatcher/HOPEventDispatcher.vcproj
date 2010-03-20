@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="9.00"
-	Name="HouseOfPhthah"
-	ProjectGUID="{02DBBFA5-0D0F-46E7-B450-C8C81FCEF2B3}"
-	RootNamespace="HouseOfPhthah"
-	Keyword="Win32Proj"
+	Version="9,00"
+	Name="HOPInputEventMgr"
+	ProjectGUID="{B2455515-E0E5-4CE6-A650-EC2992B51070}"
+	RootNamespace="HOPEventDispatcher"
 	TargetFrameworkVersion="196613"
 	>
 	<Platforms>
@@ -20,8 +19,8 @@
 			Name="Debug|Win32"
 			OutputDirectory="$(SolutionDir)\bin\$(ConfigurationName)"
 			IntermediateDirectory="$(ConfigurationName)"
-			ConfigurationType="1"
-			CharacterSet="1"
+			ConfigurationType="2"
+			CharacterSet="2"
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
@@ -40,14 +39,12 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				UseUnicodeResponseFiles="true"
 				Optimization="0"
-				AdditionalIncludeDirectories="..\plugin\Caelum\include;..\Ogre\OgreMain\include;..\Include;..\Ogre\Dependencies\include"
-				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS"
+				AdditionalIncludeDirectories="..\Ogre\OgreMain\include;..\Include;..\Ogre\Dependencies\include"
+				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS;_USRDLL;HOP_EVENT_DISPATCHER_BUILD"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
 				RuntimeLibrary="3"
-				UsePrecompiledHeader="0"
 				WarningLevel="3"
 				DebugInformationFormat="4"
 			/>
@@ -62,12 +59,11 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="caelum_d.lib OIS_d.lib HOPUtils_d.lib"
-				OutputFile="$(OutDir)\$(ProjectName)_d.exe"
+				AdditionalDependencies="OIS_d.lib"
+				OutputFile="$(OutDir)\$(ProjectName)_d.dll"
 				LinkIncremental="2"
-				AdditionalLibraryDirectories="..\Ogre\Dependencies\lib\Debug;..\plugin\Caelum\debug;..\lib\Debug"
+				AdditionalLibraryDirectories="..\Ogre\Dependencies\lib\Debug;..\lib\Debug"
 				GenerateDebugInformation="true"
-				SubSystem="2"
 				TargetMachine="1"
 			/>
 			<Tool
@@ -96,8 +92,8 @@
 			Name="Release|Win32"
 			OutputDirectory="$(SolutionDir)\bin\$(ConfigurationName)"
 			IntermediateDirectory="$(ConfigurationName)"
-			ConfigurationType="1"
-			CharacterSet="1"
+			ConfigurationType="2"
+			CharacterSet="2"
 			WholeProgramOptimization="1"
 			>
 			<Tool
@@ -119,11 +115,10 @@
 				Name="VCCLCompilerTool"
 				Optimization="2"
 				EnableIntrinsicFunctions="true"
-				AdditionalIncludeDirectories="..\plugin\Caelum\include;..\Ogre\OgreMain\include;..\Include;..\Ogre\Dependencies\include"
-				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS"
+				AdditionalIncludeDirectories="..\Ogre\OgreMain\include;..\Include;..\Ogre\Dependencies\include"
+				PreprocessorDefinitions="WIN32;NDEBUG;_WINDOWS;_USRDLL;HOP_EVENT_DISPATCHER_BUILD"
 				RuntimeLibrary="2"
 				EnableFunctionLevelLinking="true"
-				UsePrecompiledHeader="0"
 				WarningLevel="3"
 				DebugInformationFormat="3"
 			/>
@@ -138,11 +133,10 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="caelum.lib OIS.lib"
+				AdditionalDependencies="OIS.lib "
 				LinkIncremental="1"
-				AdditionalLibraryDirectories="..\plugin\Caelum\release;..\Ogre\Dependencies\lib\Release"
-				GenerateDebugInformation="false"
-				SubSystem="2"
+				AdditionalLibraryDirectories="..\Ogre\Dependencies\lib\Release"
+				GenerateDebugInformation="true"
 				OptimizeReferences="2"
 				EnableCOMDATFolding="2"
 				TargetMachine="1"
@@ -174,119 +168,51 @@
 	</References>
 	<Files>
 		<Filter
-			Name="Fichiers sources"
+			Name="Source Files"
 			Filter="cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx"
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
-				RelativePath=".\HOPCamera.cpp"
-				>
-			</File>
-			<File				
-				RelativePath=".\DefaultMeshes.cpp"
+				RelativePath=".\CEventDispatcher.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\HOPFrameListener.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\HouseOfPhthah.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\main.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\Sky.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\SkyListener.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\Terrain.cpp"
-				>
-			</File>
-			<File
-				RelativePath=".\Water.cpp"
+				RelativePath=".\HOPEventDispatcher.cpp"
 				>
 			</File>
 		</Filter>
 		<Filter
-			Name="Fichiers d&apos;en-tête"
+			Name="Header Files"
 			Filter="h;hpp;hxx;hm;inl;inc;xsd"
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
-				RelativePath=".\HOPCamera.h"
+				RelativePath=".\CEventDispatcher.h"
 				>
 			</File>
 			<File
-				RelativePath=".\DefaultMeshes.h"
+				RelativePath="..\Include\HOPEventDispatcher.h"
 				>
 			</File>
 			<File
-				RelativePath=".\HOPFrameListener.h"
+				RelativePath="..\Include\IEventDispatcher.h"
 				>
 			</File>
 			<File
-				RelativePath=".\HouseOfPhthah.h"
-				>
-			</File>
-			<File
-				RelativePath="..\Include\IHouseOfPhthah.h"
-				>
-			</File>
-			<File
-				RelativePath=".\Sky.h"
-				>
-			</File>
-			<File
-				RelativePath=".\SkyListener.h"
-				>
-			</File>
-			<File
-				RelativePath=".\Terrain.h"
-				>
-			</File>
-			<File
-				RelativePath=".\Water.h"
+				RelativePath="..\Include\IInputEventDispatcher.h"
 				>
 			</File>
 		</Filter>
 		<Filter
-			Name="Fichiers de ressources"
+			Name="Resource Files"
 			Filter="rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav"
 			UniqueIdentifier="{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}"
 			>
 			<File
-				RelativePath=".\media.cfg"
-				>
-			</File>
-			<File
-				RelativePath=".\Plugins.cfg"
-				>
-			</File>
-			<File
-				RelativePath=".\Plugins_d.cfg"
-				>
-			</File>
-			<File
-				RelativePath=".\resources.cfg"
-				>
-			</File>
-			<File
-				RelativePath="..\media\terrain.cfg"
+				RelativePath=".\HOPInputEventMgr.dox"
 				>
 			</File>
 		</Filter>
-		<File
-			RelativePath=".\ReadMe.txt"
-			>
-		</File>
 	</Files>
 	<Globals>
 	</Globals>
