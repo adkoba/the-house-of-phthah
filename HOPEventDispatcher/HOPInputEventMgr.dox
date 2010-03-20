@@ -1,0 +1,19 @@
+/** \page HOPInputEventMgr Gestionnaire des évènements d'entrées
+
+Ogre3D utilise comme gestionnaire d'évènement d'entrée la librairie OIS. Cette librairie permet
+de capturer les évènements souris, clavier et joystick. Son fonctionnement suis les modèles
+suivant :
+
+	- unbuffered input : 
+	- buffered input :
+
+Par ailleurs, OIS ne sert que d'interface. Elle n'enregistre pour chaque device d'entré qu'un seul
+listener. Or dans notre cas de figure, nous voulons pouvoir répartir le code de gestion des entrées
+dans l'ensemble des classes clientes. Ce gestionnaire va donc servire d'interface entre HOP et
+OIS. Il permettra l'enregistrement de plusieurs classes cliente qui veulent être notifiées.
+
+\section diag_composant Vue d'ensemble du module
+
+\section diag_classe Diagramme de classe
+
+*/
