@@ -1,0 +1,1 @@
+Our first game, by Thibault Lambert and Benjamin Toueg. We want to try several things and algorithms using Ogre
